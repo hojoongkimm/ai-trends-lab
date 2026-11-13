@@ -14,3 +14,4 @@
 1. **Performance Auditor**: 웹 바이탈(Web Vitals), 메모리 누수, 불필요한 리렌더링 감지 스킬.
 2. **Security Vulnerability Scanner**: 취약한 패키지 의존성 및 OWASP Top 10 보안 취약점 사전 필터링.
 3. **Refactoring Assistant**: 클린 코드 원칙(SOLID, DRY)을 준수하는 점진적 코드 리팩토링 스킬.
+

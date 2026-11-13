@@ -64,3 +64,4 @@ NVIDIA A100-80GB GPU, LLaMA-70B 모델 추론 서빙 처리량(Throughput, Reque
 
 - **대규모 추론 파이프라인의 인프라 표준**: 연구실 GPU 서버에서 오픈소스 LLM(Llama, Qwen, DeepSeek) 및 멀티모달 모델을 단일/멀티 GPU 엔드포인트로 호스팅할 때 필수 기반 엔진.
 - **Speculative Decoding 및 프리픽스 캐싱 결합**: 연구용 고속 추론 및 에이전트 다단계 루프 가속에 최적화된 백엔드.
+

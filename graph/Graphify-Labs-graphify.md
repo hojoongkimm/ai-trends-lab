@@ -62,3 +62,4 @@ $$\mathcal{G}_{\text{ctx}} = \{ v \in \mathcal{V} \mid \text{dist}(f_{\text{targ
 
 - **에이전트 코드 리팩토링의 무결성 보장**: 대규모 리포지토리 수정 시 영향도 분석(Impact Analysis)을 그래프 경로 탐색으로 수행하여 잠재적 사이드이펙트 사전 차단.
 - **프로그램 분석과 LLM의 융합 연구**: 컴파일러 정적 분석 이론(Static Program Analysis)과 언어 모델 생성 간의 하이브리드 인지 아키텍처 구축.
+
