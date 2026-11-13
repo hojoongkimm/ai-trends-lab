@@ -2,7 +2,7 @@
 
 [![Tracked Categories](https://img.shields.io/badge/Tracked%20Categories-8-blue.svg)](#-categories)
 [![Auto Curation](https://img.shields.io/badge/Curation-Daily%20Updated-brightgreen.svg)](#-curation--tracking-policy)
-[![Maintained by](https://img.shields.io/badge/Curator-%40hojoongkimm-orange.svg)](https://github.com/hojoongkimm)
+[![Open Source](https://img.shields.io/badge/Open%20Source-Awesome%20List-orange.svg)](#)
 
 > **Curated archive of trending, novel, and high-impact AI, Machine Learning, Deep Learning, Graph Neural Networks, LLM, Agent, Harness, Automation, and Skill repositories.**  
 > 인공지능(AI) 전 분야—그래프(GNN), 딥러닝(비전/멀티모달), 머신러닝(정형/최적화/데이터중심), 에이전트, 하네스, 스킬, LLM, 자동화—에서 스타가 급상승하거나 패러다임을 혁신하는 오픈소스 프로젝트를 체계적으로 분석하여 아카이빙합니다.
