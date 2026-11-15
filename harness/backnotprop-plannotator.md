@@ -80,7 +80,7 @@ $$
 
 Inbox는 기계당 하나의 장수 로컬 서버다. 에이전트가 메시지·질문 블록·파일·가이드 리뷰를 남기고, 사람이 가능할 때 답한다. **어떤 에이전트 세션도 이 큐 때문에 열린 채 대기하지 않는다.** 답장은 질문한 세션을 그 호스트의 연결을 통해 깨우고, wake 채널이 없는 호스트는 나중에 `read_thread`로 읽는다.
 
-어려운 부분은 저장이 아니라 **귀속(attribution)**이다. 세션 신원은 다음 우선순위로 해소된다.
+어려운 부분은 저장이 아니라 **귀속(attribution) 문제**다. 세션 신원은 다음 우선순위로 해소된다.
 
 $$
 \mathrm{id}(s) = \text{tag} \;\succ\; \text{host env} \;\succ\; \text{clientInfo} \;\succ\; \text{thread meta} \;\succ\; \text{registry}
