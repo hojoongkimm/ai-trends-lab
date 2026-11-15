@@ -1,7 +1,7 @@
 # 🚀 AI Trend Archive
 
 [![Tracked Categories](https://img.shields.io/badge/Tracked%20Categories-8-blue.svg)](#-categories)
-[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-21-blue.svg)](#-categories)
+[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-24-blue.svg)](#-categories)
 [![Auto Curation](https://img.shields.io/badge/Curation-Daily%20Updated-brightgreen.svg)](#-curation--tracking-policy)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Awesome%20List-orange.svg)](#)
 
@@ -17,9 +17,9 @@
 | [**🕸️ Graph**](./graph) | 그래프 신경망(GNN), 지식 그래프, Graph RAG | Graph Neural Networks, PyG, GraphRAG, Knowledge Graph | 4 |
 | [**👁️ Deep Learning**](./deep-learning) | 비전/비디오 파운데이션 모델, 서빙 인프라 | SAM 2, vLLM, Visual Foundation, Serving Systems | 2 |
 | [**📊 Machine Learning**](./machine-learning) | 정형 딥러닝, 데이터 중심 AI, 라벨 품질 정제 | TabM, Cleanlab, Tabular DL, Confident Learning | 2 |
-| [**🤖 Agent**](./agent) | 자율 AI 에이전트, 멀티에이전트 스웜, 인지 루프 | Autonomous Agent, Swarms, Cognitive Memory | 2 |
-| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 4 |
-| [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 4 |
+| [**🤖 Agent**](./agent) | 자율 AI 에이전트, 멀티에이전트 스웜, 인지 루프 | Autonomous Agent, Swarms, Cognitive Memory | 3 |
+| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 5 |
+| [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 5 |
 | [**⚙️ Automation**](./automation) | 경량 에이전트 자동화, 워크플로우 오케스트레이션 | Headless Agent, VPS Deployment, Scalable Loops | 2 |
 | [**🧠 LLM**](./llm) | 파운데이션 모델 응용, Agentic RAG, 구조화 추론 | LLM Apps, Agentic RAG, Production Reasoning | 1 |
 
@@ -58,6 +58,8 @@
   *Deterministic × Agent Hybrid* — 파일 선별·룰 매칭을 결정론적으로 고정하고 에이전트는 동적 판단에만 쓰는 하이브리드 코드 리뷰 하네스로, AACR-Bench에서 정밀도 우선 트레이드오프를 정량 제시.
 - [**LM-Evaluation-Harness (`EleutherAI/lm-evaluation-harness`)**](./harness/EleutherAI-lm-evaluation-harness.md) ⭐ `14.5k+`  
   *Few-shot LLM Benchmark Standard* — 글로벌 빅테크 및 연구소 전반에서 표준으로 사용하는 언어모델 벤치마크 평가 하네스.
+- [**Plannotator (`backnotprop/plannotator`)**](./harness/backnotprop-plannotator.md) ⭐ `11.1k+`  
+  *Human Decision Surface* — 계획·코드 리뷰를 호스트 훅에 매달아 승인 시 편집본을 실행 입력으로 되돌리고, nonce·개정·스냅샷의 3중 토큰으로 화면의 아티팩트만 승인되게 하는 20호스트 어댑터 하네스.
 
 ### 5. Skills & Tool Ecosystem
 - [**Anthropic Agent Skills (`anthropics/skills`)**](./skills/anthropics-skills.md) ⭐ `193k+`  
@@ -68,12 +70,16 @@
   *Production-Grade Skills* — 구글 엔지니어링 리드 Addy Osmani의 프로덕션 엔지니어링 스킬 팩.
 - [**Modern Web Guidance (`GoogleChrome/modern-web-guidance-src`)**](./skills/GoogleChrome-modern-web-guidance-src.md) ⭐ `4.7k+`  
   *Eval-Calibrated Skill Corpus* — 학습 데이터의 레거시 편향을 겨냥해 250개 웹 기능·203개 사용 사례를 오프라인 하이브리드 검색으로 주입하고, 평가 상승분 기반 프루닝으로 토큰을 절감하는 스킬 코퍼스.
+- [**Chrome DevTools MCP (`ChromeDevTools/chrome-devtools-mcp`)**](./skills/ChromeDevTools-chrome-devtools-mcp.md) ⭐ `56.3k+`  
+  *Browser Observation Substrate* — 접근성 트리 스냅샷과 `(loaderId, backendNodeId)` 기반 안정 핸들, DevTools TraceEngine을 그대로 쓰는 성능 통찰 패리티, 63개 도구와 토큰 예산 산출 설계.
 
 ### 6. Agent Systems & Swarms
 - [**ruflo (`ruvnet/ruflo`)**](./agent/ruvnet-ruflo.md) ⭐ `81k+`  
   *Multi-Player Swarms* — 적응형 메모리, 벡터 RAG, 멀티에이전트 조율을 결합한 자율 에이전트 플랫폼.
 - [**CowAgent (`zhayujie/CowAgent`)**](./agent/zhayujie-CowAgent.md) ⭐ `47k+`  
   *Personal Assistant Harness* — 태스크 플래닝, 스킬 실행, 자체 지식 진화를 지원하는 경량 멀티채널 에이전트.
+- [**LoopForge (`Tencent/LoopForge`)**](./agent/Tencent-LoopForge.md) ⭐ `900+`  
+  *Durable SOP Delivery* — 실행마다 워크플로 그래프를 동결하고 임차·세대 펜싱으로 소유권을 보장하며, 사람 게이트를 검증되는 판정 아티팩트로 승격한 10개 CLI 오케스트레이션 런타임.
 
 ### 7. Automation & Scalability
 - [**OpenHuman (`tinyhumansai/openhuman`)**](./automation/tinyhumansai-openhuman.md) ⭐ `42k+`  
@@ -93,7 +99,7 @@
    - **그래프 (Graph/GNN)**: 지식 그래프, Graph RAG, OGB 벤치마크, 이종 그래프 신경망
    - **딥러닝 (Deep Learning)**: 컴퓨터 비전/비디오 파운데이션 모델, 디퓨전, 추론/서빙 가속 엔진
    - **머신러닝 (Machine Learning)**: 정형 데이터 딥러닝, AutoML, 데이터 중심 AI, 라벨 노이즈 정제
-   - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 엔지니어링 스킬 팩
+   - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 휴먼 인 더 루프 승인·리뷰 표면, 브라우저 관측·도구 사용 표면, 엔지니어링 스킬 팩
    - **LLM/자동화 (LLM & Automation)**: 에이전틱 RAG, 코드 리뷰·보안 감사 파이프라인, 경량 백그라운드 오케스트레이션
 2. **분석 기준**:
    - 아키텍처 및 핵심 구조 요약
