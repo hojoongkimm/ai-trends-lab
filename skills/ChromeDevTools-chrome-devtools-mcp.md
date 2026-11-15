@@ -30,7 +30,7 @@
 핵심은 식별자 부여 규칙이다. 새 노드에는 `uid = "{snapshotId}_{counter}"`를 주지만, **매핑의 키는 노드 자신의 정체성**인 `(loaderId, backendNodeId)` 쌍이다. 같은 노드가 다음 스냅샷에 다시 나타나면 이전 `uid`를 재사용하고, 보이지 않게 된 항목의 매핑은 제거한다.
 
 $$
-\mathrm{uid}_t(n) = M_t\bigl[(\mathrm{loaderId}_t(n),\; \mathrm{backendNodeId}(n))\bigr], \qquad M_t = \{\, \text{이번 스냅샷에서 관측된 쌍} \,\}
+\mathrm{uid}_t(n) = M_t\bigl[(\mathrm{loaderId}_t(n), \mathrm{backendNodeId}(n))\bigr], \qquad M_t = \lbrace \text{이번 스냅샷에서 관측된 쌍} \rbrace
 $$
 
 이 규칙이 만드는 성질은 정확히 두 가지다. (i) **재렌더링에 강하다**: 같은 DOM 노드의 `uid`가 리페인트 후에도 유지된다. (ii) **내비게이션에 무효화된다**: `loaderId`가 바뀌면 같은 `backendNodeId`라도 새 정체성이다. 그래서 문서는 "항상 최신 스냅샷을 사용하라"고 요구한다. 프루닝이 오래된 `uid`를 풀어버리기 때문이다. 참조 수명(lifetime)이 내비게이션 경계와 정확히 일치하는, 흔치 않게 깔끔한 핸들 설계다.
@@ -42,10 +42,10 @@ $$
 도구 스키마는 요청마다 고정으로 지불되는 비용이다. 노출 도구 집합을 $T$, 스키마 토큰을 $s(t)$라 하면 요청당 고정 비용은 $\sum_{t \in T} s(t)$이고, `--slim`은 이 집합을 3개(내비게이션·스크립트 실행·스크린샷)로 줄인다.
 
 $$
-\frac{\lvert T_{\text{slim}} \rvert}{\lvert T_{\text{full}} \rvert} = \frac{3}{63} \approx 4.8\%
+\frac{\lvert T_{\text{slim}} \rvert}{\lvert T_{\text{full}} \rvert} = \frac{3}{63} \approx 0.048
 $$
 
-즉 스키마 비용을 약 95% 절감하는 대신, 페이지 상태 진단 능력을 거의 전부 포기한다. 범주 플래그는 이 사이를 이산적으로만 조절할 수 있고, 턴마다 동적으로 도구 집합을 고르는 적응형 노출은 없다. 이 거친 양자화는 뒤에서 한계로 다시 다룬다.
+즉 스키마 비용을 약 95% 절감(비율 4.8%)하는 대신, 페이지 상태 진단 능력을 거의 전부 포기한다. 범주 플래그는 이 사이를 이산적으로만 조절할 수 있고, 턴마다 동적으로 도구 집합을 고르는 적응형 노출은 없다. 이 거친 양자화는 뒤에서 한계로 다시 다룬다.
 
 ### C. 성능 계측: 트레이스 → 통찰 파이프라인
 
@@ -90,7 +90,7 @@ $$
 가장 실무적인 세부는 문자열 절단이다. 제목 등 텍스트를 자를 때 `devtools-frontend`의 `truncateToCodeUnitLength`를 써서 **그래핌 경계**에서 멈춘다. 이유가 명시적이다. 서로게이트 쌍을 중간에서 자르면 단독 서로게이트가 남고, `JSON.stringify`는 이를 `\ud83d` 같은 이스케이프로 직렬화하며, 엄격한 JSON 파서(예: Python MCP SDK)는 이를 거부한다.
 
 $$
-\text{cut}(s, L) = s[0 : \max\{\, i \le L : s[i] \text{는 그래핌 경계} \,\}]
+\text{cut}(s, L) = s\bigl[0 : \max \lbrace i \le L : s[i] \text{는 그래핌 경계} \rbrace \bigr]
 $$
 
 전송이 JSON인 한, 이미터는 유효한 UTF-16 스칼라 시퀀스만 내보내야 한다. 이런 결함은 에이전트의 추론 실패처럼 보이지만 실제로는 인코딩 계약 위반이며, 프롬프트 개선으로는 고칠 수 없다.

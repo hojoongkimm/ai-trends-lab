@@ -30,10 +30,10 @@
 주목할 점은 `allow` 경로다. Claude Code는 `updatedInput`이 없는 allow를 버리므로, 구현은 승인 시 **사람이 편집한 계획 본문을 `updatedInput.plan`으로 되돌려** 보낸다. 따라서 결정 함수는 단순한 이진 판정이 아니라 다음과 같은 편집 합성 연산이다.
 
 $$
-D : (p,\; A,\; e) \;\longmapsto\; (b,\; p',\; m), \qquad p' = \mathrm{apply}(p, e)
+D : (p, A, e) \longmapsto (b, p', m), \qquad p' = \mathrm{apply}(p, e)
 $$
 
-여기서 $p$는 제안된 계획, $A$는 위치가 붙은 주석 집합, $e$는 사람이 삽입한 편집, $b \in \{\text{allow}, \text{deny}\}$는 행동, $m$은 $A$를 직렬화한 메시지다. 승인 이후 에이전트가 실행하는 아티팩트는 $p$가 아니라 $p'$이므로, 승인 게이트는 판정이 아니라 **공동 저작(co-authoring)** 동작이 된다. 이 성질은 "사람이 의도를 다시 설명하고 에이전트가 다시 해석하는" 왕복을 제거하며, 승인된 텍스트가 실행 텍스트와 같다는 대응 관계를 구조적으로 보장한다.
+여기서 $p$는 제안된 계획, $A$는 위치가 붙은 주석 집합, $e$는 사람이 삽입한 편집, $b \in \lbrace \text{allow}, \text{deny} \rbrace$는 행동, $m$은 $A$를 직렬화한 메시지다. 승인 이후 에이전트가 실행하는 아티팩트는 $p$가 아니라 $p'$이므로, 승인 게이트는 판정이 아니라 **공동 저작(co-authoring)** 동작이 된다. 이 성질은 "사람이 의도를 다시 설명하고 에이전트가 다시 해석하는" 왕복을 제거하며, 승인된 텍스트가 실행 텍스트와 같다는 대응 관계를 구조적으로 보장한다.
 
 대기 모델은 호스트 버전에 따라 두 가지로 갈린다. Claude Code 2.1.287 이상에서는 계획 검토·코드 리뷰·주석 달기가 턴을 붙잡지 않고, 에이전트가 자기 턴을 끝낸 뒤 결정이 **다음 메시지로 도착**한다(`PLANNOTATOR_CLAUDE_MOD=0`으로 고전 흐름 복귀). 전자는 사람 지연을 턴 지연에서 분리하는 대신 에이전트가 문맥을 다시 진입해야 하고, 후자는 문맥 연속성을 유지하는 대신 턴을 점유한다. 이 트레이드오프는 하네스 설계에서 대기 비용을 어디에 회계할 것인가의 문제로 일반화된다.
 
@@ -50,7 +50,7 @@ $$
 `serverSession`은 서버가 로드 시점 페이로드에 실어 보내고 탭이 결정마다 그대로 되돌려 보내는 nonce다. 고정 포트를 새 서버가 점유했을 때 남아 있던 낡은 탭은 자기 nonce를 보내고, 새 서버는 자기가 발급하지 않은 값을 보고 **아무것도 청구하거나 정산하기 전에** 거절한다. `planRevision`은 리뷰가 열려 있는 동안 계획이 개정된 경우를 잡는다. 종합하면 결정 수용 조건은 세 항의 논리곱이다.
 
 $$
-\mathrm{accept}(d) \;\Longleftrightarrow\; d.\text{nonce} = s.\text{nonce} \;\wedge\; d.\text{revision} = s.\text{revision} \;\wedge\; d.\text{snapshot} = s.\text{snapshot}
+\mathrm{accept}(d) \Longleftrightarrow d.\text{nonce} = s.\text{nonce} \wedge d.\text{revision} = s.\text{revision} \wedge d.\text{snapshot} = s.\text{snapshot}
 $$
 
 여기에 하위 호환이 겹친다. `serverSession` 필드가 **없는** 요청(구버전 클라이언트, 비콘, 빈 종료 본문)은 기존대로 수용하고, **존재하는데 다른** 값만 거절한다. 이 비대칭은 마이그레이션 중 구버전 클라이언트를 깨지 않으면서 새 위험만 차단하는 선택이며, 프로토콜 진화에서 흔히 쓰이는 "결측은 통과, 불일치는 거부" 규칙의 명시적 사례다.
@@ -83,7 +83,7 @@ Inbox는 기계당 하나의 장수 로컬 서버다. 에이전트가 메시지�
 어려운 부분은 저장이 아니라 **귀속(attribution) 문제**다. 세션 신원은 다음 우선순위로 해소된다.
 
 $$
-\mathrm{id}(s) = \text{tag} \;\succ\; \text{host env} \;\succ\; \text{clientInfo} \;\succ\; \text{thread meta} \;\succ\; \text{registry}
+\mathrm{id}(s) = \text{tag} \succ \text{host env} \succ \text{clientInfo} \succ \text{thread meta} \succ \text{registry}
 $$
 
 여기서 tag는 `PLANNOTATOR_SESSION_TAG=host:id`, host env는 `PI_SESSION_ID`·`CODEX_THREAD_ID`·`QWEN_CODE_SESSION_ID`·`MUSE_SESSION_ID`·`T3CODE_THREAD_ID`, thread meta는 Codex가 모든 도구 호출에 붙이는 `_meta.threadId`, registry는 Qwen의 세션 레지스트리 파일(부모 PID 키)이다. 핵심 설계는 **모호하면 거절한다**는 것이다. 셸이 두 세션을 지목하거나 세션 없는 호스트 표식만 있으면 `session_ambiguous`, `--session`이 셸과 모순되면 `session_mismatch`로 실패하며 추측하지 않는다. 끝난 세션에 온 답장은 다른 세션에 넘기지 않는다. 잘못된 귀속이 남의 작업 공간에 답을 주입하는 것보다, 시끄럽게 실패하는 편이 낫다는 정책 선택이다.

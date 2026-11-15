@@ -32,7 +32,7 @@ SOP는 노드와 간선으로 정의되고, 노드 타입은 다섯이다. `agen
 실행의 진행 규칙은 단순하고 검증 가능하다. 어떤 시점 $t$의 준비 집합은 모든 선행 노드가 성공한 대기 노드의 집합이다.
 
 $$
-R_t = \{\, n \in N \;:\; \mathrm{status}_t(n) = \text{pending} \;\wedge\; \forall p \in \mathrm{pred}(n),\; \mathrm{status}_t(p) = \text{succeeded} \,\}
+R_t = \lbrace n \in N : \mathrm{status}_t(n) = \text{pending} \wedge \forall p \in \mathrm{pred}(n), \mathrm{status}_t(p) = \text{succeeded} \rbrace
 $$
 
 구현은 매 스윕마다 노드와 그 선행 집합을 훑으므로 비용은 $O(\lvert N \rvert + \lvert E \rvert)$다. 독립 분기는 같은 실행 작업 공간에서 함께 실행되고, 한 분기를 취소한 뒤 다시 실행하면 취소된 형제 분기가 복원된다. 이 동작은 선형 파이프라인과의 결정적 차이다. 실패가 종료가 아니라 **되돌림 간선**이 될 수 있으려면 분기 상태가 개별적으로 복원 가능해야 하기 때문이다.
@@ -40,7 +40,7 @@ $$
 되돌림의 대상 집합은 간선 방향에 대한 폐포로 계산된다. 노드 $n$에서 상류로 보내는 경우 재설정 대상은 $n$의 후손과 그 자신이다.
 
 $$
-\mathrm{reset}(n) = \{\, n \,\} \cup \mathrm{desc}(n), \qquad \mathrm{desc}(n) = \{\, m : n \rightsquigarrow m \,\}
+\mathrm{reset}(n) = \lbrace n \rbrace \cup \mathrm{desc}(n), \qquad \mathrm{desc}(n) = \lbrace m : n \rightsquigarrow m \rbrace
 $$
 
 `ancestors`·`descendants`가 그래프 위에서 계산되므로, "3단계로 되돌려"라는 사람의 지시가 임의의 상류 노드로 해석되고 그 하류만 무효화된다. 하류 무효화는 필수다. 상류가 바뀌면 하류 산출물은 더 이상 같은 입력에 대한 결과가 아니기 때문이다.
@@ -56,13 +56,13 @@ $$
 여러 인스턴스가 같은 실행을 집어갈 수 있는 환경에서 정확성은 "누가 지금 이 실행을 소유하는가"에 달려 있다. 실행 객체는 `OwnerInstanceID`, `LeaseUntil`, `Generation`을 갖고, 소유 판정은 세 조건의 논리곱이다.
 
 $$
-\mathrm{owns}(r) \;\Longleftrightarrow\; \text{enabled} \;\wedge\; r.\text{OwnerInstanceID} = \text{self} \;\wedge\; r.\text{Generation} > 0 \;\wedge\; r.\text{LeaseUntil} > \text{now}
+\mathrm{owns}(r) \Longleftrightarrow \text{enabled} \wedge r.\text{OwnerInstanceID} = \text{self} \wedge r.\text{Generation} > 0 \wedge r.\text{LeaseUntil} > \text{now}
 $$
 
 모든 상태 변경은 단일 임계 구역을 지난다. 상태 뮤텍스를 잡고, 저장소에서 실행을 다시 읽고, 살아 있는 상태를 다른 인스턴스가 유효한 임차로 소유하고 있으면(그리고 소유 만료를 허용하지 않는 호출이면) **쓰기를 거부**하고 관측만 소비한 뒤 반환한다. 통과하면 누적된 관측을 적용하고, 변이 함수를 적용하고, 저장하고, 구독자에게 발행한다.
 
 $$
-\mathrm{write}(r) \text{ 수용} \;\Longleftrightarrow\; \text{now} < r.\text{LeaseUntil} \;\wedge\; r.\text{OwnerInstanceID} = \text{self} \;\wedge\; r.\text{Generation} = g_{\text{self}}
+\mathrm{write}(r) \text{ 수용} \Longleftrightarrow \text{now} < r.\text{LeaseUntil} \wedge r.\text{OwnerInstanceID} = \text{self} \wedge r.\text{Generation} = g_{\text{self}}
 $$
 
 세대(generation)의 역할이 핵심이다. 인스턴스가 죽어 임차가 만료되면 다른 인스턴스가 인수하면서 세대를 증가시킨다. 좀비 인스턴스가 되살아나 자기 세대로 쓰기를 시도하면 세대 불일치로 거부된다. 시간 기반 만료만으로는 "동시에 두 명이 소유한다고 믿는" 구간이 생기므로, 세대는 그 구간에서도 단일 작성자를 보장하는 펜싱 토큰이 된다. 회수 루프는 2초 주기로 중단된 실행을 재개하고, 재개는 시간 구동이며 멱등하다.
@@ -91,7 +91,7 @@ $$
 파싱 규칙은 fail-closed다. `decision`이 이 넷 밖이면 오류, `reason`이 비면 오류, `human`인데 `actionRequired`가 비면 오류다. 결과 파일이 아예 없는 경우를 위해 `__agentflow_missing_gate_result__` 마커가 따로 존재하고, 이 마커는 조용한 통과가 아니라 재시도 경로로 이어진다. 요약하면 게이트의 다음 단계 진행 조건은 다음과 같다.
 
 $$
-\mathrm{proceed}(n) \;\Longleftrightarrow\; \exists\, \text{valid artifact}(n, a) \;\wedge\; \text{decision} = \texttt{pass}
+\mathrm{proceed}(n) \Longleftrightarrow \exists \text{ valid artifact}(n, a) \wedge \text{decision} = \texttt{pass}
 $$
 
 사람이 읽고 승인했다는 사실이 파일로 남으므로, 승인은 사후 감사 가능하고 산출물 스냅샷과 결속된다. 승인 없는 진행이 불가능하고, 검증 불가능한 승인도 불가능하다.
