@@ -17,7 +17,7 @@
 1. **극심한 인덱싱 토큰 비용 및 시간**: 거대한 문서군에 대해 커뮤니티 탐색(Leiden 알고리즘) 및 계층적 요약을 생성하느라 문서 인덱싱에 수천 달러의 LLM API 비용과 수 시간이 소요됨.
 2. **동적 증분 업데이트 불가능**: 새로운 문서가 단 1건만 추가되어도 전체 커뮤니티 계층 그래프를 처음부터 다시 재구축(Full Re-indexing)해야 함.
 
-`LightRAG`는 **Dual-level Graph Indexing(2계층 그래프 인덱싱)**과 **그래프 통합 벡터 검색**을 결합하여, GraphRAG의 높은 추론 품질을 유지하면서 **인덱싱 비용을 99% 절감하고 동적 증분 업데이트를 실현**한 아키텍처입니다.
+`LightRAG`는 <strong>Dual-level Graph Indexing(2계층 그래프 인덱싱)</strong>과 **그래프 통합 벡터 검색**을 결합하여, GraphRAG의 높은 추론 품질을 유지하면서 **인덱싱 비용을 99% 절감하고 동적 증분 업데이트를 실현**한 아키텍처입니다.
 
 ---
 
@@ -26,7 +26,7 @@
 ### A. Dual-Level Graph Representation
 LightRAG는 지식 베이스를 두 가지 상호 보완적인 토폴로지 레벨로 분해하여 인덱싱합니다:
 
-$$\mathcal{G} = (\mathcal{V}_{\text{low}} \cup \mathcal{V}_{\text{high}}, \; \mathcal{E}_{\text{intra}} \cup \mathcal{E}_{\text{cross}})$$
+$$\mathcal{G} = (\mathcal{V}_{\text{low}} \cup \mathcal{V}_{\text{high}}, \mathcal{E}_{\text{intra}} \cup \mathcal{E}_{\text{cross}})$$
 
 1. **Low-level Subgraph ($\mathcal{G}_{\text{low}}$)**:
    - 구체적인 고유명사, 엔티티(Entity: 인물, 기기명, 화학물질, 특정 변수) 및 이들 간의 직접적인 관계 엣지.

@@ -41,7 +41,7 @@
 **(1) 어휘 순위(Okapi BM25).** Lucene `EnglishMinimalStemmer`로 토큰화하고, 청크에 가이드 제목·범주·`web-feature` ID(원형 + 언슬러그 형태)를 헤더로 선부착해 정확한 식별자에 대한 어휘 재현율을 확보한다.
 
 $$
-\text{BM25}(q, d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{f(t,d)\,(k_1 + 1)}{f(t,d) + k_1\left(1 - b + b\,\dfrac{|d|}{\text{avgdl}}\right)}
+\text{BM25}(q, d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{f(t,d)(k_1 + 1)}{f(t,d) + k_1\left(1 - b + b\dfrac{|d|}{\text{avgdl}}\right)}
 $$
 
 **(2) 밀집 순위(비대칭 정적 임베딩).** 문서 청크는 빌드 시 교사 모델(`gemini-embedding-001`, 768차원 → MRL 256차원, L2 정규화)로 임베딩해 Int8로 양자화해 커밋한다. 질의는 런타임에 **정적 단어 테이블**로 약 30µs에 임베딩된다. 이 비대칭 설계의 근거가 저장소에 정량적으로 제시되어 있다: 3개 단어 질의를 합성하면 256차원에서 평균 쌍별 코사인이 0.28로 날카롭지만, 약 300단어 청크를 평균하면 모든 문서가 공유 영어 빈도 중심으로 끌려가 코사인 0.970의 좁은 원뿔(cone)로 붕괴한다. 대칭 실험에서는 "best pizza in new york" 같은 무관 질의가 `<dialog>` 문서와 0.899의 코사인을 기록했다. 질의는 소수 단어의 합, 문서는 전용 교사 벡터로 두어 이 붕괴를 우회한다.
@@ -49,7 +49,7 @@ $$
 **(3) 순위 융합(RRF)과 게이트.**
 
 $$
-\text{RRF}(d) = \sum_{r \in \{\text{dense},\,\text{bm25}\}} \frac{1}{k + \text{rank}_r(d)}, \qquad k = 60
+\text{RRF}(d) = \sum_{r \in \lbrace \text{dense}, \text{bm25} \rbrace} \frac{1}{k + \text{rank}_r(d)}, \qquad k = 60
 $$
 
 게이트는 BM25가 0건일 때만 밀집 코사인 하한 0.30을 강제하고, BM25가 키워드를 잡으면 하한 미만의 밀집 후보를 구조(rescue)로 유지한다. 둘 다 없으면 빈 배열을 반환해 범위 밖 질의를 명시적으로 거절한다. 이 "어휘 우선 게이트"는 오탐 유입과 무응답 폴백(카탈로그 전체를 덤프하는 1,500토큰 낭비) 사이의 균형점이다.

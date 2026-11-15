@@ -55,7 +55,7 @@ Deep Scan은 Standard 감사를 최대 `--workers`개 배치로 반복하고, �
 중복 결함을 하나로 묶는다는 것은 결함 집합 위의 동치 관계를 추정하는 문제다. 결함 $f_i$의 통제 실패 지점을 $c(f_i)$, 영향 경로를 $\pi(f_i)$라 할 때, 이상적 병합 술어는 다음과 같다.
 
 $$
-M(f_i, f_j) = \mathbb{1}\left[\, c(f_i) = c(f_j) \;\wedge\; \text{remediation}(f_i) \simeq \text{remediation}(f_j) \,\right]
+M(f_i, f_j) = \mathbb{1}\left[c(f_i) = c(f_j) \wedge \text{remediation}(f_i) \simeq \text{remediation}(f_j)\right]
 $$
 
 실무에서는 $c(\cdot)$이 직접 관측되지 않으므로, 위치·코드 인용·설명이라는 간접 신호로 근사한다. 이 근사의 두 오류 방향은 비대칭적 비용을 갖는다.
@@ -70,7 +70,7 @@ $$
 Deep Scan의 종료는 두 상한(총 시작 수 `--max-discovery-runs`, 시간)과 하나의 수렴 조건(`--stop-after-no-new`: 새 결함을 추가하지 않은 연속 완료 스캔 수)으로 결정된다. 패스당 "신규 결함 없음" 확률을 $q$라 두면, 상수 수확 체감 가정에서 종료까지의 기대 패스 수는 기하 분포의 연속 실패 대기시간으로 근사된다.
 
 $$
-\mathbb{E}[N] \;=\; \frac{1 - q^{s}}{(1 - q)\, q^{s}}, \qquad s = \texttt{stop-after-no-new}
+\mathbb{E}[N] = \frac{1 - q^{s}}{(1 - q) q^{s}}, \qquad s = \texttt{stop-after-no-new}
 $$
 
 현실에서는 패스가 진행될수록 신규 결함률이 낮아지므로 $q$는 증가하고, 따라서 실제 기대 패스 수는 위 근사보다 **크다**. 이 비대칭이 바로 "수렴 조건만 두고 상한을 두지 않으면 비용이 통제 불가능해지는" 이유이며, 세 상한을 함께 두는 설계의 근거다. 시간 상한은 discovery만 중단시키고, 완료된 스캔의 결함은 반환한다 — 부분 결과의 보존이 전체 실패보다 우선한다.

@@ -13,7 +13,7 @@
 1. **의존성 단절 및 환각(Call Graph Obliviousness)**: 함수 A가 함수 B를 호출하고 클래스 C를 상속받는 구조적 의존성은 텍스트 유사도와 상관관계가 없으므로, 벡터 검색이 핵심 정의부를 누락하고 유사한 이름의 엉뚱한 모듈을 반환함.
 2. **비결정론적 검색(Non-deterministic Retrieval)**: 사소한 쿼리 표현 차이로 인해 참조 파일 목록이 매번 달라져 에이전트의 리팩토링 및 버그 픽스 재현성이 저하됨.
 
-`Graphify`는 벡터 스토어를 배제하고 **추상 구문 트리(AST)와 타입 의존성 분석을 결합한 순수 결정론적 지식 그래프(Deterministic Knowledge Graph)**를 구축하여, 코드베이스 탐색의 정밀도를 100%로 끌어올렸습니다.
+`Graphify`는 벡터 스토어를 배제하고 <strong>추상 구문 트리(AST)와 타입 의존성 분석을 결합한 순수 결정론적 지식 그래프(Deterministic Knowledge Graph)</strong>를 구축하여, 코드베이스 탐색의 정밀도를 100%로 끌어올렸습니다.
 
 ---
 
@@ -32,7 +32,7 @@ $$\mathcal{G}_{\text{code}} = (\mathcal{V}_{\text{sym}}, \mathcal{E}_{\text{call
 ### B. Subgraph Context Extraction via Ego-Networks
 수정 대상 함수 $f_{\text{target}}$이 주어졌을 때, 에이전트의 컨텍스트 윈도우에 제공될 서브그래프는 $k$-hop Ego-Network로 결정론적으로 추출됩니다:
 
-$$\mathcal{G}_{\text{ctx}} = \{ v \in \mathcal{V} \mid \text{dist}(f_{\text{target}}, v) \le k \} \cup \{ (u, v) \in \mathcal{E} \mid u, v \in \mathcal{G}_{\text{ctx}} \}$$
+$$\mathcal{G}_{\text{ctx}} = \lbrace v \in \mathcal{V} \mid \text{dist}(f_{\text{target}}, v) \le k \rbrace \cup \lbrace (u, v) \in \mathcal{E} \mid u, v \in \mathcal{G}_{\text{ctx}} \rbrace$$
 
 이 서브그래프를 위상 정렬(Topological Sort) 순서로 LLM에 직렬화 제공함으로써, 에이전트가 단 한 줄의 환각 없이 정확한 호출 시그니처를 파악할 수 있도록 보장합니다.
 

@@ -15,16 +15,16 @@
 1. **과적합 및 높은 일반화 오차**: 정형 데이터는 피처 간 스케일 차이가 크고 비선형 상호작용이 불규칙하여, 단일 딥러닝 모델의 가중치가 특정 노이즈 패턴에 쉽게 과적합됨.
 2. **앙상블 연산 비용의 폭발**: 성능 격차를 줄이기 위해 통상 10~30개의 독립 신경망 앙상블을 수행하지만, 훈련/추론 시간과 메모리 사용량이 $O(M)$배로 선형 증가하여 실무 배포가 불가능함.
 
-`TabM`은 **단일 모델의 계산 비용($<10\%$ 오버헤드)으로 $M$개의 서브 모델 앙상블 효과**를 내는 파라미터 효율적 앙상블(Parameter-Efficient Ensembling) 아키텍처를 제시하여, 정형 데이터 딥러닝이 GBDT를 체계적으로 능가할 수 있음을 증명했습니다.
+`TabM`은 **단일 모델의 계산 비용($<10$% 오버헤드)으로 $M$개의 서브 모델 앙상블 효과**를 내는 파라미터 효율적 앙상블(Parameter-Efficient Ensembling) 아키텍처를 제시하여, 정형 데이터 딥러닝이 GBDT를 체계적으로 능가할 수 있음을 증명했습니다.
 
 ---
 
 ## 2. 수학적 원리 및 아키텍처 (Mathematical Formulation)
 
 ### A. Rank-1 Perturbation Parameterization
-기존 앙상블이 $M$개의 독립적인 가중치 행렬 $\{W_m\}_{m=1}^M \in \mathbb{R}^{d_{\text{out}} \times d_{\text{in}}}$을 학습하는 반면, TabM은 공유 가중치 행렬 $W_0$에 앙상블 멤버별 Rank-1 스케일링 벡터 $(r_m, s_m)$를 하다마르 곱(Hadamard product) 형태로 결합합니다:
+기존 앙상블이 $M$개의 독립적인 가중치 행렬 $\lbrace W_m \rbrace_{m=1}^M \in \mathbb{R}^{d_{\text{out}} \times d_{\text{in}}}$을 학습하는 반면, TabM은 공유 가중치 행렬 $W_0$에 앙상블 멤버별 Rank-1 스케일링 벡터 $(r_m, s_m)$를 하다마르 곱(Hadamard product) 형태로 결합합니다:
 
-$$W_m = W_0 \odot (r_m s_m^\top), \quad r_m \in \mathbb{R}^{d_{\text{out}}}, \; s_m \in \mathbb{R}^{d_{\text{in}}}$$
+$$W_m = W_0 \odot (r_m s_m^\top), \quad r_m \in \mathbb{R}^{d_{\text{out}}}, s_m \in \mathbb{R}^{d_{\text{in}}}$$
 
 순전파(Forward Pass) 연산 시, 미니배치 내 입력 $x$에 대해 랭크-1 벡터를 브로드캐스팅하여 효율적으로 병렬 계산합니다:
 $$h_m = (W_0 (x \odot s_m)) \odot r_m + b_m$$
@@ -37,7 +37,7 @@ $$h_m = (W_0 (x \odot s_m)) \odot r_m + b_m$$
 | **TabNet / FT-Transformer** | $O(L \cdot d^2)$ | $O(B \cdot L \cdot d^2)$ | $O(B \cdot L \cdot d)$ |
 | **TabM ($M$ 서브 앙상블)** | **$O(d_{\text{in}} d_{\text{out}} + M(d_{\text{in}} + d_{\text{out}}))$** | **$O(B \cdot d_{\text{in}} d_{\text{out}} + M \cdot B(d_{\text{in}} + d_{\text{out}}))$** | **$O(d_{\text{in}} d_{\text{out}} + M(d_{\text{in}} + d_{\text{out}}))$** |
 
-파라미터 증가율이 $M \cdot (d_{\text{in}} + d_{\text{out}}) / (d_{\text{in}} d_{\text{out}}) \approx 0.05$ 미만으로 억제되어, 연산 오버헤드가 단일 MLP 대비 $5\sim 10\%$에 불과합니다.
+파라미터 증가율이 $M \cdot (d_{\text{in}} + d_{\text{out}}) / (d_{\text{in}} d_{\text{out}}) \approx 0.05$ 미만으로 억제되어, 연산 오버헤드가 단일 MLP 대비 $5\sim 10$%에 불과합니다.
 
 ---
 

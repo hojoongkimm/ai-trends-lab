@@ -24,7 +24,7 @@ Microsoft의 `GraphRAG`는 **지식 그래프 추출 + 계층적 커뮤니티 �
 ## 2. 수학적 원리 및 인덱싱 알고리즘 (Mathematical Formulation)
 
 ### A. Graph Extraction & Modularity Optimization
-1. **Knowledge Graph Extraction**: 비정형 코퍼스 $\mathcal{D} = \{d_1, \dots, d_N\}$에서 LLM 프롬프팅을 통해 엔티티 집합 $\mathcal{V}$, 방향성 관계 집합 $\mathcal{E}$, 속성 및 클레임(Covariates)을 추출하여 이종 지식 그래프 $\mathcal{G} = (\mathcal{V}, \mathcal{E})$를 구축합니다.
+1. **Knowledge Graph Extraction**: 비정형 코퍼스 $\mathcal{D} = \lbrace d_1, \dots, d_N \rbrace$에서 LLM 프롬프팅을 통해 엔티티 집합 $\mathcal{V}$, 방향성 관계 집합 $\mathcal{E}$, 속성 및 클레임(Covariates)을 추출하여 이종 지식 그래프 $\mathcal{G} = (\mathcal{V}, \mathcal{E})$를 구축합니다.
 2. **Leiden Community Detection**: 그래프의 모듈러리티(Modularity $\mathcal{Q}$)를 극대화하는 계층적 분할을 수행합니다:
 
 $$\mathcal{Q} = \frac{1}{2m} \sum_{i, j} \left( A_{ij} - \frac{k_i k_j}{2m} \right) \delta(c_i, c_j)$$
@@ -33,7 +33,7 @@ $$\mathcal{Q} = \frac{1}{2m} \sum_{i, j} \left( A_{ij} - \frac{k_i k_j}{2m} \rig
 
 ### B. Dual Search Modalities (Map-Reduce Retrieval)
 - **Local Search**: 특정 엔티티 중심의 정밀 탐색. 질의와 관련된 핵심 노드를 시드로 삼아 $k$-hop 이웃 노드 및 연결된 원천 텍스트 청크를 결합하여 추론.
-- **Global Search**: 코퍼스 전체를 아우르는 요약 탐색. 각 계층별 커뮤니티 요약 보고서 $\{C_1, \dots, C_M\}$에 대해:
+- **Global Search**: 코퍼스 전체를 아우르는 요약 탐색. 각 계층별 커뮤니티 요약 보고서 $\lbrace C_1, \dots, C_M \rbrace$에 대해:
   1. *Map 단계*: 각 커뮤니티 요약이 질의에 대해 지니는 관련성 점수와 중간 답변 생성.
   2. *Reduce 단계*: 상위 점수를 획득한 중간 답변들을 통합하여 최종 종합 리포트 생성.
 

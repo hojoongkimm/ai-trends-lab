@@ -13,21 +13,21 @@
 1. **역할 혼선 및 목표 망각(Goal Drifting)**: 수십 단계의 장기 실행(Long-horizon) 태스크에서 단일 시스템 프롬프트가 과부하되어 이전 지침을 무시하거나 무한 루프에 빠짐.
 2. **복합 전문성 결여**: 기획, 수학적 증명, 소프트웨어 구현, 정적 분석 검증 등 서로 상충되는 인지적 스타일(System 1 vs System 2)을 단일 모델 롤플레잉으로 동시에 수행하기 어려움.
 
-`ruflo`는 역할을 세분화한 **멀티에이전트 스웜(Multi-Agent Swarm)** 토폴로지와 **반성 기반 에피소딕 메모리(Episodic Reflection Memory)**를 결합하여, 복잡한 엔지니어링 문제를 자율적으로 분할 정복(Divide-and-Conquer)하는 오케스트레이션 프레임워크입니다.
+`ruflo`는 역할을 세분화한 **멀티에이전트 스웜(Multi-Agent Swarm)** 토폴로지와 <strong>반성 기반 에피소딕 메모리(Episodic Reflection Memory)</strong>를 결합하여, 복잡한 엔지니어링 문제를 자율적으로 분할 정복(Divide-and-Conquer)하는 오케스트레이션 프레임워크입니다.
 
 ---
 
 ## 2. 수학적 원리 및 조율 아키텍처 (Orchestration Architecture)
 
 ### A. Dynamic Task Routing & Agent Selection
-입력 목표(Goal) $G$와 하위 작업 명세 $t \in \mathcal{T}$가 주어졌을 때, 전문화된 에이전트 풀 $\mathcal{A} = \{A_1, \dots, A_M\}$ 중 최적의 실행자를 결정하는 라우팅 함수는 다음과 같습니다:
+입력 목표(Goal) $G$와 하위 작업 명세 $t \in \mathcal{T}$가 주어졌을 때, 전문화된 에이전트 풀 $\mathcal{A} = \lbrace A_1, \dots, A_M \rbrace$ 중 최적의 실행자를 결정하는 라우팅 함수는 다음과 같습니다:
 
 $$P(A_k \mid t) = \frac{\exp\left( \cos(\phi(t), \psi(A_k)) / \tau \right)}{\sum_{j=1}^M \exp\left( \cos(\phi(t), \psi(A_j)) / \tau \right)}$$
 
 여기서 $\phi(t)$는 태스크 요구 스킬 임베딩, $\psi(A_k)$는 에이전트의 시스템 프롬프트 및 도구 셋 임베딩입니다.
 
 ### B. Episodic Reflection & Adaptive Memory Loop
-각 에이전트의 실행 결과 $\mathcal{R}_t = (\text{Plan}, \text{Tool Calls}, \text{Observation}, \text{Status})$에 대해 검증기(Verifier)가 스칼라 보상 $r \in \{-1, +1\}$을 산출합니다:
+각 에이전트의 실행 결과 $\mathcal{R}_t = (\text{Plan}, \text{Tool Calls}, \text{Observation}, \text{Status})$에 대해 검증기(Verifier)가 스칼라 보상 $r \in \lbrace -1, +1 \rbrace$을 산출합니다:
 - 실패($r=-1$) 시, 인과적 오류 분석(Critique)을 생성하여 벡터 DB의 실패 기억 저장소에 인덱싱.
 - 차후 유사 태스크 발생 시, 해당 실패 케이스를 Few-shot 네거티브 제약(Negative Constraints)으로 프롬프트에 자동 주입하여 동일 오류 반복 차단.
 

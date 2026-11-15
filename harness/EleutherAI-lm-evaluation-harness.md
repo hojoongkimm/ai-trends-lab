@@ -12,7 +12,7 @@
 ## 1. 연구 배경 및 평가 표준의 부재 (Research Problem)
 
 초기 거대 언어 모델(LLM) 연구들은 각 연구팀마다 서로 다른 프롬프트 형식, 공백/구두점 처리 방식, 토크나이저 확률 정규화 기법을 사용하여 **모델 간 비교 결과의 재현성(Reproducibility)이 심각하게 훼손**되었습니다:
-1. **프롬프트 민감도(Prompt Brittleness)**: 공백 한 칸, 지시문 미세 수정만으로도 MMLU 정확도가 $5\sim 10\%$ 변동함.
+1. **프롬프트 민감도(Prompt Brittleness)**: 공백 한 칸, 지시문 미세 수정만으로도 MMLU 정확도가 $5\sim 10$% 변동함.
 2. **로그 확률 vs 생성 평가의 불일치**: 객관식 문제에서 Log-Likelihood 기반 선택과 Greedy Generation 기반 선택 간의 점수 왜곡.
 
 `lm-evaluation-harness`는 **수학적 평가 지표(Log-Likelihood, Length-Normalized Perplexity, Pass@k)와 프롬프트 템플릿을 코드 레벨에서 완전히 표준화**하여, 전 세계 학계(NeurIPS, ICML, ACL)와 리더보드의 공인 벤치마크 표준으로 확립되었습니다.
@@ -26,7 +26,7 @@
 
 $$\log P(Y \mid X) = \sum_{t=1}^m \log P(y_t \mid X, y_{<t})$$
 
-정답 선택지들의 토큰 길이 편향을 제거하기 위해 **길이 정규화(Length Normalization)**를 적용합니다:
+정답 선택지들의 토큰 길이 편향을 제거하기 위해 <strong>길이 정규화(Length Normalization)</strong>를 적용합니다:
 
 $$\text{Score}_{\text{norm}}(Y \mid X) = \frac{1}{m^\alpha} \sum_{t=1}^m \log P(y_t \mid X, y_{<t})$$
 

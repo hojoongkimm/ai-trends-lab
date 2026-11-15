@@ -28,7 +28,7 @@
 리뷰 파이프라인의 첫 단계는 LLM이 아니라 순수 함수다. `internal/agent/selection.go`의 `selectFiles`는 각 변경 파일에 대해 (i) 경로·확장자 허용목록 게이트, (ii) 삭제 파일 검사, (iii) 파일 단위 diff 토큰 상한을 순서대로 적용하고, 입력 순서를 보존한 채 파일별 결정을 반환한다.
 
 $$
-S = \{\, f \in \Delta \;:\; \text{gate}(f) = \text{pass} \;\wedge\; \lnot \text{del}(f) \;\wedge\; \tau(\text{diff}_f) \le L \,\}
+S = \lbrace f \in \Delta : \text{gate}(f) = \text{pass} \wedge \lnot \text{del}(f) \wedge \tau(\text{diff}_f) \le L \rbrace
 $$
 
 여기서 $\Delta$는 변경 파일 집합, $\tau(\cdot)$는 토크나이저 토큰 수, $L$은 `max_tokens`에서 유도된 프롬프트 상한(`llmloop.PromptTokenLimit`)이다. 이 함수는 출력·변이·git 호출·LLM 호출을 일절 수행하지 않는 순수 함수로 선언되어 있으며, 그 이유가 코드 주석에 명시되어 있다: 과거 `--preview`와 실제 실행이 각자 선택 로직을 계산하면서 결과가 어긋난 회귀(#782)를 겪은 뒤, **두 경로가 동일한 함수의 반환값을 소비**하도록 통합했다. 즉 "무엇을 리뷰할 것인가"에 대해 미리보기와 본 실행이 구조적으로 동치(preview ≡ run)이며, 실행 결과가 예고와 달라질 수 있는 항목(예산 소진, 재개 시 재사용, 제공자 장애)은 선택 단계에서 의도적으로 배제된다. 커버리지 집합은 `registerCoverage`로 봉인(seal)되어, 미리보기의 `will_review`와 실행의 실제 리뷰 집합이 같은 출처를 갖는다.
@@ -45,7 +45,7 @@ $$
 토큰 회계 관점에서 단일 거대 컨텍스트와 번들 분할의 차이는 다음과 같다. 전자는 모든 호출이 누적 이력을 재독해 비용이 $O(m^2)$로 증가하는 반면, 후자는 그룹별 1회 호출 비용의 합 $O(m)$으로 유지된다.
 
 $$
-C_{\text{single}} \approx \sum_{j=1}^{m} \tau\!\left(\bigcup_{i \le j} G_i\right) \;\;\gg\;\; C_{\text{bundle}} \approx \sum_{j=1}^{m} \tau(G_j)
+C_{\text{single}} \approx \sum_{j=1}^{m} \tau\left(\bigcup_{i \le j} G_i\right) \gg C_{\text{bundle}} \approx \sum_{j=1}^{m} \tau(G_j)
 $$
 
 ### C. 템플릿 엔진 기반 룰 매칭
