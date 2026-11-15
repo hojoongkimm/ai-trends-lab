@@ -24,11 +24,11 @@
 ### A. Likelihood-based Multi-Choice Scoring
 프롬프트 $X$와 후보 정답 $Y = (y_1, \dots, y_m)$에 대해, 모델의 조건부 로그 우도(Conditional Log-Likelihood)를 계산합니다:
 
-$$\log P(Y \mid X) = \sum_{t=1}^m \log P(y_t \mid X, y_{<t})$$
+$$\log P(Y \mid X) = \sum_{t=1}^m \log P(y_t \mid X, y_{\lt t})$$
 
 정답 선택지들의 토큰 길이 편향을 제거하기 위해 <strong>길이 정규화(Length Normalization)</strong>를 적용합니다:
 
-$$\text{Score}_{\text{norm}}(Y \mid X) = \frac{1}{m^\alpha} \sum_{t=1}^m \log P(y_t \mid X, y_{<t})$$
+$$\text{Score}_{\text{norm}}(Y \mid X) = \frac{1}{m^\alpha} \sum_{t=1}^m \log P(y_t \mid X, y_{\lt t})$$
 
 ### B. Unbiased Code Generation Metric (Pass@k)
 코딩 벤치마크(HumanEval, MBPP)에서 $n$개 샘플 중 $c$개가 정답 테스트를 통과했을 때, 편향 없는(Unbiased) Pass@k 기댓값을 콤비네이션 수식으로 계산합니다 (Chen et al., 2021):
