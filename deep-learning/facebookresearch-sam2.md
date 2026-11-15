@@ -22,7 +22,9 @@
 ## 2. 수학적 원리 및 아키텍처 (Mathematical Principles & Architecture)
 
 ### A. Streaming Memory Attention & Memory Bank
-현재 프레임 $t$의 비전 특징 맵 $F_t$가 주어졌을 때, 과거 프레임들의 정보는 **Memory Bank** $\mathcal{M}_t = \lbrace m_1, \dots, m_{t-1}, p_1, \dots, p_k \rbrace$에 FIFO 큐 형태로 보관됩니다 (과거 프레임 임베딩 및 사용자의 대화형 프롬프트 임베딩).
+현재 프레임 $t$의 비전 특징 맵 $F_t$가 주어졌을 때, 과거 프레임들의 정보는 **Memory Bank** $\mathcal{M}_t$에 FIFO 큐 형태로 보관됩니다 (과거 프레임 임베딩 및 사용자의 대화형 프롬프트 임베딩).
+
+$$\mathcal{M}_t = \lbrace m_1, \dots, m_{t-1}, p_1, \dots, p_k \rbrace$$
 
 현재 프레임의 특징은 Memory Cross-Attention을 통해 업데이트됩니다:
 
@@ -39,7 +41,7 @@ $$\tilde{F}_t = \text{Softmax}\left( \frac{Q(F_t) K(\mathcal{M}_t)^\top}{\sqrt{d
 
 DAVIS-2017, MOSE, SA-V 벤치마크 기준 비디오 객체 분할(VOS) 정량 성능:
 
-| 모델 아키텍처 | DAVIS-2017 $\mathcal{J}$&$\mathcal{F}$ | MOSE $\mathcal{J}$&$\mathcal{F}$ (어려운 가림 환경) | 추론 속도 (FPS, RTX 4090) | 비디오-이미지 통합 지원 |
+| 모델 아키텍처 | DAVIS-2017 $\mathcal{J}$ & $\mathcal{F}$ | MOSE $\mathcal{J}$ & $\mathcal{F}$ (어려운 가림 환경) | 추론 속도 (FPS, RTX 4090) | 비디오-이미지 통합 지원 |
 | :--- | :---: | :---: | :---: | :---: |
 | **SAM 1 (Frame-by-frame)** | 54.2 | 31.8 | 12 fps | ❌ 이미지 전용 |
 | **XMem (ECCV 2022)** | 86.2 | 67.5 | 22 fps | ❌ 인터랙티브 프롬프트 한계 |
