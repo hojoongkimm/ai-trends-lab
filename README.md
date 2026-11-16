@@ -1,7 +1,7 @@
 # 🚀 AI Trend Archive
 
 [![Tracked Categories](https://img.shields.io/badge/Tracked%20Categories-8-blue.svg)](#-categories)
-[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-24-blue.svg)](#-categories)
+[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-27-blue.svg)](#-categories)
 [![Auto Curation](https://img.shields.io/badge/Curation-Daily%20Updated-brightgreen.svg)](#-curation--tracking-policy)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Awesome%20List-orange.svg)](#)
 
@@ -18,8 +18,8 @@
 | [**👁️ Deep Learning**](./deep-learning) | 비전/비디오 파운데이션 모델, 서빙 인프라 | SAM 2, vLLM, Visual Foundation, Serving Systems | 2 |
 | [**📊 Machine Learning**](./machine-learning) | 정형 딥러닝, 데이터 중심 AI, 라벨 품질 정제 | TabM, Cleanlab, Tabular DL, Confident Learning | 2 |
 | [**🤖 Agent**](./agent) | 자율 AI 에이전트, 멀티에이전트 스웜, 인지 루프 | Autonomous Agent, Swarms, Cognitive Memory | 3 |
-| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 5 |
-| [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 5 |
+| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 6 |
+| [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 7 |
 | [**⚙️ Automation**](./automation) | 경량 에이전트 자동화, 워크플로우 오케스트레이션 | Headless Agent, VPS Deployment, Scalable Loops | 2 |
 | [**🧠 LLM**](./llm) | 파운데이션 모델 응용, Agentic RAG, 구조화 추론 | LLM Apps, Agentic RAG, Production Reasoning | 1 |
 
@@ -60,6 +60,8 @@
   *Few-shot LLM Benchmark Standard* — 글로벌 빅테크 및 연구소 전반에서 표준으로 사용하는 언어모델 벤치마크 평가 하네스.
 - [**Plannotator (`backnotprop/plannotator`)**](./harness/backnotprop-plannotator.md) ⭐ `11.1k+`  
   *Human Decision Surface* — 계획·코드 리뷰를 호스트 훅에 매달아 승인 시 편집본을 실행 입력으로 되돌리고, nonce·개정·스냅샷의 3중 토큰으로 화면의 아티팩트만 승인되게 하는 20호스트 어댑터 하네스.
+- [**agent-browser (`vercel-labs/agent-browser`)**](./harness/vercel-labs-agent-browser.md) ⭐ `51.6k+`  
+  *Shell-Native Browser Runtime* — 세션 데몬 위에서 명령 한 줄씩 브라우저를 조작하고, `(page, frame, loaderId, backendNodeId)` 정체성 기반 참조와 fail-closed 정책 로딩, 160개 MCP 도구의 프로필 양자화로 실행 경계를 계약화한 Rust 브라우저 런타임.
 
 ### 5. Skills & Tool Ecosystem
 - [**Anthropic Agent Skills (`anthropics/skills`)**](./skills/anthropics-skills.md) ⭐ `193k+`  
@@ -72,6 +74,10 @@
   *Eval-Calibrated Skill Corpus* — 학습 데이터의 레거시 편향을 겨냥해 250개 웹 기능·203개 사용 사례를 오프라인 하이브리드 검색으로 주입하고, 평가 상승분 기반 프루닝으로 토큰을 절감하는 스킬 코퍼스.
 - [**Chrome DevTools MCP (`ChromeDevTools/chrome-devtools-mcp`)**](./skills/ChromeDevTools-chrome-devtools-mcp.md) ⭐ `56.3k+`  
   *Browser Observation Substrate* — 접근성 트리 스냅샷과 `(loaderId, backendNodeId)` 기반 안정 핸들, DevTools TraceEngine을 그대로 쓰는 성능 통찰 패리티, 63개 도구와 토큰 예산 산출 설계.
+- [**Claude-BugHunter (`elementalsouls/Claude-BugHunter`)**](./skills/elementalsouls-Claude-BugHunter.md) ⭐ `6.4k+`  
+  *Domain Skill Bundle* — 681개 공개 보고서 패턴을 24개 클래스의 83개 스킬로 색인하고, 7-Question Gate 판정과 deny-wins 범위 술어를 코드로 강제하며, 스킬 on/off ablation의 음성 기준선까지 공개한 보안 도메인 스킬 팩.
+- [**Stitch Design Skills (`google-labs-code/stitch-skills`)**](./skills/google-labs-code-stitch-skills.md) ⭐ `9.2k+`  
+  *Design-to-Code Skill Library* — Stitch MCP 위에서 `SITE.md`·`DESIGN.md`·토큰 파일로 관례를 외부화하고, 4단계 게이트와 AST 검사기로 일부 규칙을 기계 검증하며, 배턴 파일로 루프 상태를 컨텍스트 밖에 두는 디자인 스킬 묶음.
 
 ### 6. Agent Systems & Swarms
 - [**ruflo (`ruvnet/ruflo`)**](./agent/ruvnet-ruflo.md) ⭐ `81k+`  
@@ -99,7 +105,7 @@
    - **그래프 (Graph/GNN)**: 지식 그래프, Graph RAG, OGB 벤치마크, 이종 그래프 신경망
    - **딥러닝 (Deep Learning)**: 컴퓨터 비전/비디오 파운데이션 모델, 디퓨전, 추론/서빙 가속 엔진
    - **머신러닝 (Machine Learning)**: 정형 데이터 딥러닝, AutoML, 데이터 중심 AI, 라벨 노이즈 정제
-   - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 휴먼 인 더 루프 승인·리뷰 표면, 브라우저 관측·도구 사용 표면, 엔지니어링 스킬 팩
+   - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 휴먼 인 더 루프 승인·리뷰 표면, 브라우저 관측·도구 사용 표면, 브라우저 실행 런타임과 격리 계약, 엔지니어링 스킬 팩, 도메인 지식 스킬 번들, 디자인-투-코드 스킬 파이프라인
    - **LLM/자동화 (LLM & Automation)**: 에이전틱 RAG, 코드 리뷰·보안 감사 파이프라인, 경량 백그라운드 오케스트레이션
 2. **분석 기준**:
    - 아키텍처 및 핵심 구조 요약
