@@ -28,7 +28,7 @@
 CLI는 얇은 클라이언트다. 첫 명령이 세션별 데몬을 띄우고, 이후 명령은 소켓으로 그 데몬에 붙어 같은 브라우저를 조작한다. `--session`마다 데몬과 브라우저가 하나씩 생기고, 기본값은 헤드리스이며, 명령이 1시간(`DEFAULT_IDLE_TIMEOUT_MS = 3,600,000`) 없으면 세션 지속성이 설정된 경우 상태를 저장한 뒤 스스로 종료한다. 상태 없는 실행과 데몬 실행의 비용 차이는 명령 수 $k$에 대해 다음과 같다.
 
 $$
-C_{\text{stateless}}(k) = k\,(c_{\text{spawn}} + c_{\text{launch}} + c_{\text{step}}), \qquad C_{\text{daemon}}(k) = c_{\text{spawn}} + c_{\text{launch}} + k\,(c_{\text{spawn}} + c_{\text{ipc}} + c_{\text{step}})
+C_{\text{stateless}}(k) = k(c_{\text{spawn}} + c_{\text{launch}} + c_{\text{step}}), \qquad C_{\text{daemon}}(k) = c_{\text{spawn}} + c_{\text{launch}} + k(c_{\text{spawn}} + c_{\text{ipc}} + c_{\text{step}})
 $$
 
 브라우저 기동 $c_{\text{launch}}$는 명령당 한 번이 아니라 세션당 한 번으로 상각된다. 대신 데몬과 브라우저의 상주 메모리가 최대 1시간 유지되고, 세션 상태가 프로세스 경계를 넘으므로 **설정 변경**이라는 새로운 문제가 생긴다.
@@ -44,7 +44,7 @@ $$
 참조의 정체성은 네 튜플로 결정된다. 페이지 세션 $p$, 프레임 $f$, 문서 로더 $\lambda$, 백엔드 노드 번호 $\beta$에 대해,
 
 $$
-\mathrm{ref}(n) = D\bigl[(p,\, f,\, \lambda,\, \beta(n))\bigr]
+\mathrm{ref}(n) = D\bigl[(p, f, \lambda, \beta(n))\bigr]
 $$
 
 $D$는 문서별로 유지되는 사상이고, 스냅샷마다 비워지는 것은 일시 사상이다. 그래서 살아남은 DOM 요소는 같은 참조를 유지하고, 요소가 교체되거나 문서가 바뀌면($\lambda$ 변경) 참조는 재사용 없이 무효화된다. 로더를 모르는 문서는 참조를 이어받지 않는다. 저장소의 회귀 테스트가 이 세 성질을 그대로 고정한다.
@@ -52,7 +52,7 @@ $D$는 문서별로 유지되는 사상이고, 스냅샷마다 비워지는 것�
 무효화된 참조는 조용히 다른 요소를 가리키지 않는다. 남아 있는 정체성으로 복구를 시도하되, 같은 역할·이름의 노드가 정확히 하나일 때만 받아들인다.
 
 $$
-\mathrm{recover}(r, m) \;\text{성공} \iff \bigl\lvert \lbrace n : \mathrm{role}(n) = r \wedge \mathrm{name}(n) = m \rbrace \bigr\rvert = 1
+\mathrm{recover}(r, m) \iff \bigl\lvert \lbrace n : \mathrm{role}(n) = r \wedge \mathrm{name}(n) = m \rbrace \bigr\rvert = 1
 $$
 
 둘이면 "여러 요소가 일치하니 새 스냅샷을 찍으라"는 오류로 끝난다. 가용성을 내주고 오작동을 막는, 이 저장소에서 반복되는 실패 정책이다.
@@ -62,7 +62,7 @@ $$
 **도메인 허용목록**은 탐색뿐 아니라 하위 리소스, WebSocket, EventSource, `sendBeacon`까지 막고, 지원되는 Chromium 세션에서는 WebRTC 피어 연결을 꺼서 STUN·TURN·관련 DNS로 HTTP 가로채기를 우회하지 못하게 한다. 명령 하나가 진행되는 조건은 다음과 같다.
 
 $$
-\mathrm{proceed}(a, u) \iff \mathrm{host}(u) \in A \;\wedge\; \pi(a) \ne \mathrm{deny} \;\wedge\; \bigl(\pi(a) = \mathrm{allow} \;\vee\; \mathrm{confirmed}(a, 60\,\mathrm{s})\bigr)
+\mathrm{proceed}(a, u) \iff \mathrm{host}(u) \in A \wedge \pi(a) \ne \mathrm{deny} \wedge \bigl(\pi(a) = \mathrm{allow} \vee \mathrm{confirmed}(a, 60\mathrm{s})\bigr)
 $$
 
 **행동 정책**은 `allow`·`deny`·`confirm` 목록과 기본값으로 구성된 JSON이다. 정책 파일을 읽을 수 없으면 `close`를 제외한 모든 행동을 거부하는 정책이 만들어진다(코드에 명시된 fail-closed). 확인 대기는 60초 뒤 자동 거부되고, `--confirm-interactive`가 켜졌는데 표준입력이 터미널이 아니면 즉시 거부된다. 파이프 입력에서의 사고를 구조적으로 막는 조치다.
@@ -70,7 +70,7 @@ $$
 **내용 경계**는 페이지에서 온 텍스트를 도구 출력과 구분하는 표식이다. 본문 앞뒤를 `AGENT_BROWSER_PAGE_CONTENT`와 `END_AGENT_BROWSER_PAGE_CONTENT`로 감싸고, 프로세스마다 CSPRNG로 만든 nonce $\nu$를 양쪽 표식에 함께 넣는다.
 
 $$
-\mathrm{marker} = \bigl(\mathrm{label},\, \nu,\, \mathrm{origin}\bigr), \qquad \nu \sim \mathrm{CSPRNG}(\cdot)
+\mathrm{marker} = \bigl(\mathrm{label}, \nu, \mathrm{origin}\bigr), \qquad \nu \sim \mathrm{CSPRNG}(\cdot)
 $$
 
 문서 스스로 "방어 심층"이라 밝히듯, 이 층은 오케스트레이터가 표식을 존중한다는 가정 위에 선다. nonce는 위조를 비현실적으로 만들 뿐, 모델이 표식 안의 지시를 따르지 않게 강제하지는 않는다.
@@ -104,7 +104,7 @@ $$
 `flow`는 브라우저에서 한 번 수행한 과업을 1차 API 요청 시퀀스로 저장하고, 다음부터는 HTTP로 직접 재생한다. 텔레메트리 경로(`/collect`, `/beacon`, `/pixel` 등)는 선택에서 제외되고, 요청 본문은 슬롯이 있는 템플릿으로 일반화된다. 재생 결과가 검증에 실패하면 흐름은 "미검증"으로 표시되고 UI 경로로 되돌아간다.
 
 $$
-C_{\text{replay}} = O(1) \text{ HTTP 왕복}, \qquad C_{\text{agent}} = O(k)\;(\text{스냅샷} + \text{행동}) \text{ 왕복}
+C_{\text{replay}} = O(1) \text{ HTTP 왕복}, \qquad C_{\text{agent}} = O(k)(\text{스냅샷} + \text{행동}) \text{ 왕복}
 $$
 
 스냅샷·클릭 루프를 요청 하나로 접는 대신, 사이트 변경에 대한 취약성을 떠안는다. 검증 게이트가 그 취약성을 "조용한 오답"이 아니라 "명시적 실패"로 바꾸는 장치다.

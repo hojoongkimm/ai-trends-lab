@@ -44,7 +44,7 @@ $G_t$는 스타일 가이드, $M_t$는 메타데이터, $C_t$는 컴포넌트 �
 3단계가 선언하는 아키텍처 규칙은 여덟 가지다(모듈형 컴포넌트, 로직 격리, 데이터 분리, 타입 안전, 프로젝트 적합성, 내비게이션 배선, 스타일 매핑, 다크 모드). 그중 실행 가능한 검사기는 두 개만 본다. `scripts/validate.js`는 `@swc/core`로 AST를 파싱해 다음 술어를 평가한다.
 
 $$
-V(f) = \bigl[\exists I \in \mathrm{Intf}(f) : \mathrm{name}(I) \text{ ends with Props}\bigr] \;\wedge\; \bigl[\nexists a \in \mathrm{JSXAttr}(f) : \mathrm{className}(a) \ni \mathrm{hex}\bigr]
+V(f) = \bigl[\exists I \in \mathrm{Intf}(f) : \mathrm{name}(I) \text{ ends with Props}\bigr] \wedge \bigl[\nexists a \in \mathrm{JSXAttr}(f) : \mathrm{className}(a) \ni \mathrm{hex}\bigr]
 $$
 
 첫 항은 `Props`로 끝나는 인터페이스 선언의 존재, 둘째 항은 `className` 안의 16진 색상 부재다. 검사기는 82줄이고, 실패 시 종료 코드 1을 낸다. 규칙 집합 $R$과 검사 집합 $V$의 비율은 다음과 같다.

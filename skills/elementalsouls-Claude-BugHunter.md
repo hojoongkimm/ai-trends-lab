@@ -30,10 +30,10 @@
 스킬은 이름으로 호출되지 않고 **설명(frontmatter `description`)으로 자동 발동**한다. 따라서 상주 비용과 호출 비용이 분리된다. 설명 색인 $D$, 클래스 $c$의 본문 $B_c$, 사전 분포 $p(c)$에 대해 한 세션의 기대 컨텍스트 비용은 다음과 같다.
 
 $$
-\mathbb{E}[C] = \lvert D \rvert + \sum_{c} p(c)\,\lvert B_c \rvert
+\mathbb{E}[C] = \lvert D \rvert + \sum_{c} p(c)\lvert B_c \rvert
 $$
 
-실측 가능한 값은 $\lvert D \rvert \approx 52\,\mathrm{KB}$(83개 설명 합계)와 $\sum_c \lvert B_c \rvert \approx 1.69\,\mathrm{MB}$(전체 본문)다. 전체를 넣는 것이 불가능하고, 색인만으로는 본문이 없다. 이 구조가 성립하려면 모델의 설명 매칭이 정확해야 하며, 저장소에는 임베딩 검색이나 결정론적 라우터가 없다. 디스패치 품질이 곧 모델의 판단이라는 뜻이고, 4절 2항의 한계가 여기서 나온다.
+실측 가능한 값은 $\lvert D \rvert \approx 52\mathrm{KB}$(83개 설명 합계)와 $\sum_c \lvert B_c \rvert \approx 1.69\mathrm{MB}$(전체 본문)다. 전체를 넣는 것이 불가능하고, 색인만으로는 본문이 없다. 이 구조가 성립하려면 모델의 설명 매칭이 정확해야 하며, 저장소에는 임베딩 검색이나 결정론적 라우터가 없다. 디스패치 품질이 곧 모델의 판단이라는 뜻이고, 4절 2항의 한계가 여기서 나온다.
 
 부수 효과로 스킬 파일 자체가 지식 베이스의 단위가 된다. 각 `hunt-*`는 탐지 패턴, 우회 표, 체인 템플릿, 공개 보고서 인용을 담고, 문서에 따르면 433개 패턴이 개별 인용되어 감사 가능하다. 지식의 출처를 파일 단위로 추적할 수 있게 만든 것이 이 코퍼스의 실질적 자산이다.
 
@@ -48,7 +48,7 @@ $$
 질문은 순서대로 재현성($Q_1$: 실제 HTTP 요청으로 단계별 서술이 가능한가), 프로그램 수용 범위($Q_2$), 자산 범위($Q_3$), 권한 현실성($Q_4$), 기지 여부($Q_5$), 영향 증명($Q_6$), 금지 클래스($Q_7$)를 본다. 이어 4개 제출 전 게이트(현실성·영향·중복·보고서 품질)가 순차로 돌고, 결과는 PASS·KILL·CHAIN-REQUIRED·DOWNGRADE 네 출구로 갈린다. 게이트의 목적 함수는 명시적이다.
 
 $$
-u(f) = v(f)\,\mathbb{1}\bigl[\mathrm{submit}(f)\bigr] - c_{\text{test}} - c_{\text{submit}} - \lambda\,\mathbb{1}\bigl[\mathrm{N/A}(f)\bigr], \qquad \lambda \gt 0
+u(f) = v(f)\mathbb{1}\bigl[\mathrm{submit}(f)\bigr] - c_{\text{test}} - c_{\text{submit}} - \lambda\mathbb{1}\bigl[\mathrm{N/A}(f)\bigr], \qquad \lambda \gt 0
 $$
 
 $Q_6$이 "기술적으로 가능"에 머물면 죽이지 않고 강등하는 비대칭은, 증거가 약한 발견을 버리지 않으면서 과대평가도 하지 않으려는 절충이다.
@@ -60,7 +60,7 @@ $Q_6$이 "기술적으로 가능"에 머물면 죽이지 않고 강등하는 비
 `engine/scope.py`는 허용목록을 다섯 형태(apex, 와일드카드, 정확한 호스트, CIDR, `re:` 정규식)로 파싱하고, 호스트 $h$에 대해 다음을 계산한다.
 
 $$
-\mathrm{allowed}(h) = \neg \Bigl(\bigvee_{o \in O} m(o, h)\Bigr) \;\wedge\; \Bigl(\bigvee_{i \in I} m(i, h)\Bigr)
+\mathrm{allowed}(h) = \neg \Bigl(\bigvee_{o \in O} m(o, h)\Bigr) \wedge \Bigl(\bigvee_{i \in I} m(i, h)\Bigr)
 $$
 
 $O$는 제외 목록, $I$는 포함 목록, $m$은 패턴 매칭이다. 제외가 이기고(deny wins), 어디에도 맞지 않으면 범위 밖이다(default deny). 이 술어는 정찰 단계와 헌트 단계 양쪽에서 호출되고, 모든 에이전트 호출 전에 검사된다. 산문이 아니라 코드라는 점이 핵심이다. 무인 실행에서 모델의 준수를 기대하지 않고, 모델이 틀릴 수 있는 지점을 술어 하나로 좁힌다.
@@ -70,7 +70,7 @@ $O$는 제외 목록, $I$는 포함 목록, $m$은 패턴 매칭이다. 제외�
 기본 실행은 에이전트를 쓰지 않는다. 서비스·기술 핑거프린트, JS 번들 엔드포인트 마이닝, JS 비밀 스캔(값은 마스킹), 그리고 두 독립 출처(`gau`의 과거 수동 수집과 `katana`의 실시간 크롤)에서 뽑은 파라미터를 모아 클래스별로 분류하고, `skill_map.py`가 `(엔드포인트 또는 파라미터, 클래스)`를 **실제로 설치된** `hunt-*` 스킬과 curl 시작 프로브에 대응시킨다. 산출물은 `arsenal.md`이고, 실행은 거기서 멈춘다.
 
 $$
-C_{\text{map}} = O(\lvert \text{hosts} \rvert \cdot \lvert \text{params} \rvert) \;\text{의 결정론 연산}, \qquad C_{\text{hunt}} = O(\lvert \text{candidates} \rvert)\;\text{의 에이전트 호출}
+C_{\text{map}} = O(\lvert \text{hosts} \rvert \cdot \lvert \text{params} \rvert)\quad \text{의 결정론 연산}, \qquad C_{\text{hunt}} = O(\lvert \text{candidates} \rvert)\quad \text{의 에이전트 호출}
 $$
 
 에이전트는 순위가 매겨진 후보에만 붙고, 기본은 읽기 전용이며 상태 변경 PoC는 `--allow-intrusive`로 명시해야 한다. 병렬 헌트는 `--parallel`, 상한은 `--max-hunts`로 제한된다.
