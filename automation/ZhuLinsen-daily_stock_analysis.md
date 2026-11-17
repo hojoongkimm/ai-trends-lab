@@ -29,7 +29,7 @@ LLM으로 주식 리포트를 쓰는 일은 쉬워졌다. 운영 가능한 시�
 제공자 정의는 데이터셋과 시장의 곱으로 선언된다. 예를 들어 Efinance는 중국 시장의 실시간 시세·일봉·시장 개요를, AkShare는 중국과 홍콩의 시세·일봉에 중국 지수·시장 개요를 제공한다. 능력은 부분함수다.
 
 $$
-\mathrm{cap} : (\text{dataset}, \text{market}) \rightharpoonup \mathcal{P}(\text{provider})
+\mathrm{cap} : (\text{dataset}, \text{market}) \to \mathcal{P}(\text{provider}) \ \text{or undefined}
 $$
 
 여섯 시장(중국, 홍콩, 미국, 일본, 한국, 대만)과 ETF, 여러 데이터셋의 곱에서 정의되지 않은 칸이 존재하고, 시스템은 그 칸을 **리포트에 노출한다**. 커버리지를
