@@ -103,7 +103,7 @@ $$
 주입은 임계값과 상위 $k$의 결합이다. 프로젝트 범위와 스택 일치에 작은 가산 $\lambda$를 주고 상위 6개를 고른다.
 
 $$
-S_i = c_i + \lambda \mathbb{1}[\text{project or stack match}], \qquad \mathrm{Inject} = \operatorname{top}_6 \lbrace i : c_i \ge 0.7 \rbrace
+S_i = c_i + \lambda \mathbb{1}[\text{project or stack match}], \qquad \mathrm{Inject} = \mathrm{Top6}\lbrace i : c_i \ge 0.7 \rbrace
 $$
 
 스코프 설계가 이 구조의 핵심이다. v2.1은 저장 위치를 `~/.claude` 밖으로 옮기고, `CLAUDE_PROJECT_DIR`, `git remote get-url origin`, `git rev-parse --show-toplevel` 순으로 프로젝트를 식별해 12자 해시로 저장한다. 리모트 URL을 쓰는 이유가 좋다. 같은 저장소가 다른 기기에서도 **같은 해시**를 얻어 프로젝트 기억이 이식된다. 승격 규칙도 명시적이다. 같은 instinct가 2개 이상 프로젝트에서 관측되고 평균 신뢰도가 0.8 이상이면 전역 후보가 된다.
