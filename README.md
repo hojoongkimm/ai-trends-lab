@@ -1,7 +1,7 @@
 # 🚀 AI Trend Archive
 
 [![Tracked Categories](https://img.shields.io/badge/Tracked%20Categories-8-blue.svg)](#-categories)
-[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-37-blue.svg)](#-categories)
+[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-38-blue.svg)](#-categories)
 [![Auto Curation](https://img.shields.io/badge/Curation-Daily%20Updated-brightgreen.svg)](#-curation--tracking-policy)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Awesome%20List-orange.svg)](#)
 
@@ -18,7 +18,7 @@
 | [**👁️ Deep Learning**](./deep-learning) | 비전/비디오 파운데이션 모델, 서빙 인프라 | SAM 2, vLLM, Visual Foundation, Serving Systems | 2 |
 | [**📊 Machine Learning**](./machine-learning) | 정형 딥러닝, 데이터 중심 AI, 라벨 품질 정제 | TabM, Cleanlab, Tabular DL, Confident Learning | 2 |
 | [**🤖 Agent**](./agent) | 자율 AI 에이전트, 멀티에이전트 스웜, 인지 루프 | Autonomous Agent, Swarms, Cognitive Memory | 6 |
-| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 8 |
+| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 9 |
 | [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 11 |
 | [**⚙️ Automation**](./automation) | 경량 에이전트 자동화, 워크플로우 오케스트레이션 | Headless Agent, VPS Deployment, Scalable Loops | 3 |
 | [**🧠 LLM**](./llm) | 파운데이션 모델 응용, Agentic RAG, 구조화 추론 | LLM Apps, Agentic RAG, Production Reasoning | 1 |
@@ -50,8 +50,10 @@
   *Data-Centric AI Standard* — Confident Learning 이론 기반으로 데이터셋 내 라벨 오류와 이상치를 자동 탐지/보정하는 필수 도구.
 
 ### 4. Harness & Execution Runtime
-- [**ECC (`affaan-m/ECC`)**](./harness/affaan-m-ECC.md) ⭐ `300k+`  
-  *Agent Harness Optimization* — Claude Code, Codex, Cursor를 위한 스킬·본능(Instinct)·장기 기억·보안 경계 최적화 프레임워크.
+- [**ECC (`affaan-m/ECC`)**](./harness/affaan-m-ECC.md) ⭐ `306k+`  
+  *Harness Operating System* — 72개 에이전트·327개 스킬·98개 커맨드 위에 7단계 엔지니어링 루프를 런타임으로 얹고, 훅으로 100% 관측한 스코프 instinct를 0.3–0.9 신뢰도로 승격하며, 102개 규칙 AgentShield로 자기 구성을 감사하는 하네스 운영체제.
+- [**CLI-Anything (`HKUDS/CLI-Anything`)**](./harness/HKUDS-CLI-Anything.md) ⭐ `59.7k+` (arXiv:2606.03854)  
+  *Agent-Native GUI Lift* — 6튜플 계약 $H=(S,C,I,R,V,D)$와 7단계 SOP로 GUI 소프트웨어를 상태 있는 CLI로 리프팅하고, 실제 바이너리에 렌더를 위임한 4계층 검증(매직바이트·픽셀·RMS)과 미리보기 번들 프로토콜, 69개 하네스를 CLI-Hub으로 유통하는 에이전트 네이티브 인터페이스 생성기.
 - [**learn-claude-code (`shareAI-lab/learn-claude-code`)**](./harness/shareAI-lab-learn-claude-code.md) ⭐ `80k+`  
   *Nano Agent Harness* — 0부터 1까지 순수 Bash로 Claude Code 아키텍처를 구현한 경량 에이전트 하네스.
 - [**Open Code Review (`alibaba/open-code-review`)**](./harness/alibaba-open-code-review.md) ⭐ `50k+`  
@@ -70,15 +72,15 @@
 ### 5. Skills & Tool Ecosystem
 - [**Anthropic Agent Skills (`anthropics/skills`)**](./skills/anthropics-skills.md) ⭐ `193k+`  
   *Official Agent Skills* — 도구 호출 및 컴퓨터 제어를 규격화한 앤트로픽 공식 에이전트 스킬 프로토콜.
-- [**Superpowers (`obra/superpowers`)**](./skills/obra-superpowers.md) ⭐ `316k+`  
-  *Agentic Skills Framework* — TDD 기반 소프트웨어 엔지니어링 규율을 에이전트에 주입하는 스킬 프레임워크.
+- [**Superpowers (`obra/superpowers`)**](./skills/obra-superpowers.md) ⭐ `321k+`  
+  *Discipline as a Runtime Bootstrap* — `SessionStart` 훅으로 스킬 호출 규칙을 매 세션·압축 후 재주입하고, 스펙 합의→2–5분 과업 계획→과업당 새 서브에이전트·2단계 리뷰로 실행하며, 20,000자 압축 절단점을 CI 테스트로 고정한 15개 절차 스킬.
 - [**Agent Skills (`addyosmani/agent-skills`)**](./skills/addyosmani-agent-skills.md) ⭐ `116k+`  
   *Production-Grade Skills* — 구글 엔지니어링 리드 Addy Osmani의 프로덕션 엔지니어링 스킬 팩.
 - [**Modern Web Guidance (`GoogleChrome/modern-web-guidance-src`)**](./skills/GoogleChrome-modern-web-guidance-src.md) ⭐ `4.7k+`  
   *Eval-Calibrated Skill Corpus* — 학습 데이터의 레거시 편향을 겨냥해 250개 웹 기능·203개 사용 사례를 오프라인 하이브리드 검색으로 주입하고, 평가 상승분 기반 프루닝으로 토큰을 절감하는 스킬 코퍼스.
 - [**Chrome DevTools MCP (`ChromeDevTools/chrome-devtools-mcp`)**](./skills/ChromeDevTools-chrome-devtools-mcp.md) ⭐ `56.3k+`  
   *Browser Observation Substrate* — 접근성 트리 스냅샷과 `(loaderId, backendNodeId)` 기반 안정 핸들, DevTools TraceEngine을 그대로 쓰는 성능 통찰 패리티, 63개 도구와 토큰 예산 산출 설계.
-- [**Claude-BugHunter (`elementalsouls/Claude-BugHunter`)**](./skills/elementalsouls-Claude-BugHunter.md) ⭐ `6.4k+`  
+- [**Claude-BugHunter (`elementalsouls/Claude-BugHunter`)**](./skills/elementalsouls-Claude-BugHunter.md) ⭐ `11.4k+`  
   *Domain Skill Bundle* — 681개 공개 보고서 패턴을 24개 클래스의 83개 스킬로 색인하고, 7-Question Gate 판정과 deny-wins 범위 술어를 코드로 강제하며, 스킬 on/off ablation의 음성 기준선까지 공개한 보안 도메인 스킬 팩.
 - [**Stitch Design Skills (`google-labs-code/stitch-skills`)**](./skills/google-labs-code-stitch-skills.md) ⭐ `9.2k+`  
   *Design-to-Code Skill Library* — Stitch MCP 위에서 `SITE.md`·`DESIGN.md`·토큰 파일로 관례를 외부화하고, 4단계 게이트와 AST 검사기로 일부 규칙을 기계 검증하며, 배턴 파일로 루프 상태를 컨텍스트 밖에 두는 디자인 스킬 묶음.
@@ -125,7 +127,7 @@
    - **그래프 (Graph/GNN)**: 지식 그래프, Graph RAG, OGB 벤치마크, 이종 그래프 신경망
    - **딥러닝 (Deep Learning)**: 컴퓨터 비전/비디오 파운데이션 모델, 디퓨전, 추론/서빙 가속 엔진
    - **머신러닝 (Machine Learning)**: 정형 데이터 딥러닝, AutoML, 데이터 중심 AI, 라벨 노이즈 정제
-   - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 휴먼 인 더 루프 승인·리뷰 표면, 브라우저 관측·도구 사용 표면, 브라우저 실행 런타임과 격리 계약, 엔지니어링 스킬 팩, 도메인 지식 스킬 번들, 디자인-투-코드 스킬 파이프라인, 에이전트-애플리케이션 프로토콜, 스킬 역량 실측 평가, 자율성 예산과 완료 검증, 검증 주도 도구 표면
+   - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 휴먼 인 더 루프 승인·리뷰 표면, 브라우저 관측·도구 사용 표면, 브라우저 실행 런타임과 격리 계약, 엔지니어링 스킬 팩, 도메인 지식 스킬 번들, 디자인-투-코드 스킬 파이프라인, 에이전트-애플리케이션 프로토콜, 스킬 역량 실측 평가, 자율성 예산과 완료 검증, 검증 주도 도구 표면, GUI→CLI 하네스 생성과 에이전트 네이티브 인터페이스 계약, 설정 감사와 공급망 보안
    - **LLM/자동화 (LLM & Automation)**: 에이전틱 RAG, 코드 리뷰·보안 감사 파이프라인, 경량 백그라운드 오케스트레이션, 도메인 증거 조립과 스케줄 실행
 2. **분석 기준**:
    - 아키텍처 및 핵심 구조 요약

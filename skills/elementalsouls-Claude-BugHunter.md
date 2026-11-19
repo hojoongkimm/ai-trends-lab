@@ -1,11 +1,11 @@
 # 🛠️ Claude-BugHunter: Domain Expertise as a Skill Bundle — 83 Auto-Routed Skills over 681 Disclosed-Report Patterns, a Deterministic Scope Guard, and an Ablation That Refuses to Flatter Itself
 
 - **Repository**: [elementalsouls/Claude-BugHunter](https://github.com/elementalsouls/Claude-BugHunter)
-- **Stars**: ⭐ 6,400+ (forks 960+, created 2026-05, 6 open issues)
+- **Stars**: ⭐ 11,358 (forks 1,515, created 2026-05-05, 4 open issues, last push 2026-11-18)
 - **Category**: `Skills` / Domain Skill Bundle & Offensive-Security Workflow
 - **Organization**: Independent (elementalsouls, GenAI Security Research)
-- **License / Runtime**: MIT for code (`*.py`, `*.sh`) and CC BY 4.0 for content (skills, wordlists, rubrics, docs) / Python 3 standard library engine (about 3.2k LOC under `engine/` and `cbh/`, about 9.5k LOC of Python in the repository including the eval harness), 83 `SKILL.md` files totaling 1.69 MB with about 52 KB of front-matter descriptions, 15 slash commands, 5 harness install targets (Claude Code, OpenCode, Codex CLI, Hermes, AntiGravity)
-- **Key Themes**: description-triggered skill routing across 58 `hunt-*` class skills, a 7-Question conjunction gate with four outcomes, deterministic deny-wins scope enforcement in code rather than in prose, `$0` recon with LLM only on opt-in hunt, cross-engagement negative memory with a dead-class threshold, and a self-graded skills-on/off ablation whose published baseline shows no capability gain
+- **License / Runtime**: MIT for code (`*.py`, `*.sh`) and CC BY 4.0 for content (skills, wordlists, rubrics, docs) / Python 3 standard library engine (3.2k lines under `engine/` and `cbh/`, 2,510 of them in the eight engine modules alone), 83 `SKILL.md` files totaling 1.60 MiB with 49 KB of front-matter descriptions, 15 slash commands, 5 harness install targets (Claude Code, OpenCode, Codex CLI, Hermes, AntiGravity), two MCP surfaces (HackerOne report/scope reader, Burp HTTP hands)
+- **Key Themes**: description-triggered skill routing across 58 `hunt-*` class skills, a 7-Question conjunction gate with four outcomes, deterministic deny-wins scope enforcement in code rather than in prose, `$0` recon with LLM only on opt-in hunt, a coverage ledger that turns untested pairs into published caveats, cross-engagement negative memory with a dead-class threshold, and a self-graded skills-on/off ablation whose published baseline shows no capability gain
 
 ---
 
@@ -33,7 +33,7 @@ $$
 \mathbb{E}[C] = \lvert D \rvert + \sum_{c} p(c)\lvert B_c \rvert
 $$
 
-실측 가능한 값은 $\lvert D \rvert \approx 52\mathrm{KB}$(83개 설명 합계)와 $\sum_c \lvert B_c \rvert \approx 1.69\mathrm{MB}$(전체 본문)다. 전체를 넣는 것이 불가능하고, 색인만으로는 본문이 없다. 이 구조가 성립하려면 모델의 설명 매칭이 정확해야 하며, 저장소에는 임베딩 검색이나 결정론적 라우터가 없다. 디스패치 품질이 곧 모델의 판단이라는 뜻이고, 4절 2항의 한계가 여기서 나온다.
+실측 가능한 값은 $\lvert D \rvert \approx 49\mathrm{KB}$(83개 설명 합계)와 $\sum_c \lvert B_c \rvert \approx 1.60\mathrm{MiB}$(전체 본문)다. 전체를 넣는 것이 불가능하고, 색인만으로는 본문이 없다. 이 구조가 성립하려면 모델의 설명 매칭이 정확해야 하며, 저장소에는 임베딩 검색이나 결정론적 라우터가 없다. 디스패치 품질이 곧 모델의 판단이라는 뜻이고, 4절 2항의 한계가 여기서 나온다.
 
 부수 효과로 스킬 파일 자체가 지식 베이스의 단위가 된다. 각 `hunt-*`는 탐지 패턴, 우회 표, 체인 템플릿, 공개 보고서 인용을 담고, 문서에 따르면 433개 패턴이 개별 인용되어 감사 가능하다. 지식의 출처를 파일 단위로 추적할 수 있게 만든 것이 이 코퍼스의 실질적 자산이다.
 
@@ -77,6 +77,14 @@ $$
 
 기억 층은 탐색-활용 계산을 파일로 한다. `memory.py`는 확정 발견, 미확정 부정 기록, 호스트별 롤업을 JSONL로 쌓고, 같은 기술 스택에서 같은 클래스가 **5회** 부정되면 그 조합을 "죽은 클래스"로 표시해 이후 호출을 건너뛴다(`DEAD_CLASS_THRESHOLD = 5`). 파일은 10 MB에서 회전하고 최근 3개를 보존한다. 이것은 "이 스택에서 이 클래스는 수확이 없다"는 사실을 세션 밖에 저장해 재시도를 줄이는, 소박하지만 올바른 형태의 학습이다.
 
+또 하나의 결정론 층은 **커버리지 원장**이다(`closure.py`, 162줄). 리포트는 보통 발견만 싣고, 그러면 독자는 나머지 전부를 확인했다고 암묵적으로 읽는다. 펜테스트 산출물에서 가장 위험한 기본값이다. 원장은 정찰이 드러낸 모든 `(호스트, 취약점 클래스)` 쌍에 판정을 요구하고, 허용 판정 집합을 `clean`, `finding`, `not_applicable`, `out_of_scope` 네 가지로 둔다. `blocked`는 의도적으로 빠져 있다. 막힌 항목은 구멍이고, 구멍은 caveat이 된다. 닫힘 조건은 다음과 같다.
+
+$$
+\mathrm{close} = \begin{cases} \text{CLEAN} & \forall (h,c) \in \mathrm{Discovered}, v(h,c) \in \mathrm{Covered} \\ \text{MARKED} & \text{otherwise, gaps as caveats} \end{cases}
+$$
+
+`coverage_complete`는 하드 게이트다. 지오 블로킹된 호스트 하나가 있는 참여는 결코 깨끗하게 닫히지 않고, MARKED로 닫히면서 그 사실을 말한다. 나가지 못한 것을 조용히 빠뜨린 깨끗해 보이는 리포트보다, 함께 나가는 caveat이 낫다는 판단이다.
+
 ### E. 명령 표면과 하네스 이식
 
 15개 슬래시 명령이 6단계 흐름을 나눠 맡는다(`/hunt`, `/recon`, `/scope`, `/surface`, `/triage`, `/validate`, `/chain`, `/report`, `/autopilot`, `/intel`, `/pickup`, `/remember`, `/memory-gc`, `/token-scan`, `/web3-audit`). 지식 층은 5개 하네스(Claude Code, OpenCode, Codex CLI, Hermes, AntiGravity)에 같은 `SKILL.md` 형식으로 복사되고, 명령과 `/hunt` 엔진은 Claude Code 전용으로 남는다. 이식 범위를 의도적으로 비대칭으로 둔 것은 정직한 선택이다. 슬래시 명령과 훅 기반 오케스트레이션은 호스트 API에 의존하므로, 흉내내면 조용히 다른 동작을 만든다.
@@ -85,7 +93,11 @@ $$
 
 ### F. 자격증명이 아니라 지식: 실행 환경의 경계
 
-이 번들은 도구를 실행하지 않고 **판단과 절차를 공급**한다. 실제 요청은 에이전트가 `curl`이나 Burp MCP로 보낸다. 따라서 경계는 저장소가 아니라 호스트에 있다. 그 결과 두 가지가 따라온다. (i) 산출물의 품질이 호스트의 도구 권한에 그대로 종속된다. (ii) 모델 제공자의 실시간 사이버 안전장치가 개입하면, **권한이 있는 작업도 거부되거나 다른 모델로 폴백**될 수 있다. 저장소는 이 현상을 숨기지 않고, Opus 5의 고위험 사이버 요청이 거부 대신 Opus 4.8로 폴백된다는 점과 Cyber Verification Program 등록 경로를 문서에 적는다. 스킬 번들이 런타임 정책에 의해 매개되는 능력이라는 사실을 인정하는 서술이다.
+이 번들은 도구를 실행하지 않고 **판단과 절차를 공급**한다. 실제 요청은 에이전트가 `curl`이나 Burp MCP로 보낸다. 따라서 경계는 저장소가 아니라 호스트에 있고, 그 경계에는 MCP 서버가 두 개 놓인다.
+
+첫째는 **Burp MCP**다. 설치 스크립트의 `--burp-mcp` 플래그가 각 하네스의 설정에 Burp 확장의 MCP 서버를 배선하고, 엔진은 `mcp/burp-mcp.json`에서 네 개의 도구만 허용목록에 올린다. HTTP/1.1·HTTP/2 요청 전송과 Burp Collaborator 페이로드 생성·상호작용 조회다. 허용 도구 목록이 좁다는 점이 중요하다. 엔진이 여는 것은 "요청을 보내고 대역 외 상호작용을 관찰하는" 능력뿐이고, 프록시 설정·스캔 실행·리포트 생성 같은 나머지 표면은 열리지 않는다. 에이전트가 쓸 수 있는 행동 집합을 호스트 권한의 부분집합으로 줄이는 방식이다.
+
+둘째는 **HackerOne MCP**다. `mcp/hackerone/server.py`(406줄)는 공개 보고서 중복 검색과 프로그램 범위 조회를 인증 없이 제공하고, API 사용자 이름·토큰을 넣으면 비공개 프로그램과 자기 제출 이력까지 읽는다. 설치 안내는 이 두 값을 비워 두어도 모든 스킬과 커맨드, 공개 도구가 작동한다고 명시한다. 즉 **자격증명은 선택적 확장**이고, 없을 때 기능이 줄어드는 쪽으로 설계됐다. 도구 표면을 넓히는 대신 실패를 좁히는 선택이다. 그 결과 두 가지가 따라온다. (i) 산출물의 품질이 호스트의 도구 권한에 그대로 종속된다. (ii) 모델 제공자의 실시간 사이버 안전장치가 개입하면, **권한이 있는 작업도 거부되거나 다른 모델로 폴백**될 수 있다. 저장소는 이 현상을 숨기지 않고, Opus 5의 고위험 사이버 요청이 거부 대신 Opus 4.8로 폴백된다는 점과 Cyber Verification Program 등록 경로를 문서에 적는다. 스킬 번들이 런타임 정책에 의해 매개되는 능력이라는 사실을 인정하는 서술이다.
 
 ### G. 증거: 자기 채점 오라클을 붙인 ablation
 
@@ -115,11 +127,11 @@ $$
 | 발동 방식 | 항상 로드 | 사람이 찾음 | 설명 기반 자동 | 사람이 판단 |
 | 범위 강제 | 없음 | 없음 | 코드(deny-wins) + 게이트 | 계약서·사람 |
 | 오탐 통제 | 없음 | 없음 | 7-Question Gate, 4개 출구 | 리뷰 문화 |
-| 상주 토큰 | 작음 | 0 | 약 52 KB 색인 + 선택 본문 | 0 |
+| 상주 토큰 | 작음 | 0 | 약 49 KB 색인 + 선택 본문 | 0 |
 | 실행 비용 | 낮음 | 0 | 맵은 무료, 헌트는 옵트인 | 사람 시간 |
 | 효과 증거 | 없음 | 없음 | 자기 채점 ablation(공개, 음성) | 없음 |
 
-같은 `skills` 카테고리의 다른 문서들과 비교하면 위치가 분명해진다. Anthropic의 `skills`는 규격을, Addy Osmani의 팩은 엔지니어링 규율을, Superpowers는 방법론을 공급한다. 이 번들은 **측정 대상이 명확한 도메인 지식**을 공급하고, 그 측정에서 자기에게 불리한 결과를 먼저 공개한다. 코퍼스의 크기(1.69 MB)와 색인(52 KB)의 비율, 그리고 색인 정확도가 성능을 좌우한다는 구조는 다른 대형 스킬 팩에도 그대로 적용되는 관찰이다.
+같은 `skills` 카테고리의 다른 문서들과 비교하면 위치가 분명해진다. Anthropic의 `skills`는 규격을, Addy Osmani의 팩은 엔지니어링 규율을, Superpowers는 방법론을 공급한다. 이 번들은 **측정 대상이 명확한 도메인 지식**을 공급하고, 그 측정에서 자기에게 불리한 결과를 먼저 공개한다. 코퍼스의 크기(1.60 MiB)와 색인(49 KB)의 비율, 그리고 색인 정확도가 성능을 좌우한다는 구조는 다른 대형 스킬 팩에도 그대로 적용되는 관찰이다.
 
 ---
 
@@ -127,7 +139,7 @@ $$
 
 1. **자기 평가가 능력 상승을 확인하지 못했다**: 공개 기준선은 천장 효과로 델타 0을 보였고, 비용은 오히려 늘었다. 진짜 델타를 재려는 PortSwigger 계층은 계정과 수동 랩 실행을 요구해 반자동으로 남아 있다. 즉 "이 번들이 실력을 올린다"는 주장은 아직 측정되지 않은 상태이며, 저장소도 그렇게 적는다.
 2. **디스패치가 모델의 설명 매칭에 의존**: 83개 설명 중 무엇이 발동할지는 모델 판단이다. 임베딩 검색도, 결정론적 라우터도 없으므로, 유사 클래스(예: 인증 우회와 세션, 캐시 포이즌과 요청 스머글링)에서 오발동·미발동이 생긴다. 오발동은 토큰을, 미발동은 커버리지를 잃는다.
-3. **산문 규범과 코드 강제의 간극**: 범위 검사는 엔진·`cbh` 경로에서만 코드다. 스킬을 대화형으로 쓸 때의 범위 준수는 여전히 모델의 순응에 달려 있고, 게이트도 산문 체크리스트다. 정책의 강제 범위가 실행 경로에 따라 달라진다.
+3. **산문 규범과 코드 강제의 간극**: 코드로 강제되는 정책은 범위 술어, 커버리지 원장, 도구 허용목록 세 곳이다. 정작 7-Question Gate는 산문 체크리스트이고, 스킬을 대화형으로 쓸 때의 범위 준수는 여전히 모델의 순응에 달려 있다. 정책의 강제 범위가 실행 경로에 따라 달라진다.
 4. **권한은 가정되고 검증되지 않는다**: `/hunt`는 권한을 주장으로 받아들이고 SOW 수집을 거부한다(프라이버시상 합리적). 그 결과 오용의 책임은 전적으로 운영자에게 있고, 번들은 그것을 기술적으로 막지 않는다. 이중용도 도구의 일반적 한계이며, 제공자 측 안전장치(CVP, 모델 폴백)가 사실상의 외부 게이트가 된다.
 5. **품질 분산**: 83개 중 55개 자체 작성, 20개 커뮤니티, 8개 상류 이식이다. 스킬별 평가는 없고 CI는 하네스 동작만 점검한다. 어떤 클래스는 인용과 표가 촘촘하고 어떤 클래스는 얇다.
 6. **문서·수치의 드리프트**: 저장소 설명은 82개 스킬이라 적고 README는 83개라 적으며, 워크플로를 6단계라 부르면서 단계 이름은 5개다. 681개 패턴 중 433개만 개별 인용이라는 비율도 스스로 밝힌다. 지식 코퍼스에서 수치 신뢰도는 곧 감사 가능성이다.
