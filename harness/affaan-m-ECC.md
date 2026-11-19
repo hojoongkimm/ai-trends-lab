@@ -150,7 +150,7 @@ Duplicate hooks file detected: ./hooks/hooks.json resolves to already-loaded fil
 | 관측 방식 | 없음 | 모델 판단 | SessionStart 주입 | PreToolUse·PostToolUse 훅 |
 | 구성 감사 | 없음 | 없음 | 없음 | AgentShield 102 규칙 |
 | 컨텍스트 규율 | 없음 | 색인/본문 분리 | 20,000자 상한 테스트 | 예산 상한을 환경변수로 |
-| 하네스 지원 | 호스트 | 호스트별 | 16개 하네스 | Claude Code 주, 다수 어댑터 |
+| 하네스 지원 | 호스트 | 호스트별 | 다수(패리티 비대칭) | Claude Code 주 + 어댑터 |
 
 같은 카테고리의 두 문서와 나란히 두면 역할이 갈린다. `obra/superpowers`는 **방법론**을 부트스트랩으로 주입해 "스킬을 반드시 먼저 호출하라"는 규율을 세우고, `elementalsouls/Claude-BugHunter`는 **도메인 지식**을 색인하고 판정 게이트를 붙인다. ECC는 그 둘을 모두 포함하려는 야심을 갖고, 대신 **런타임 표면**(훅, 메모리, 감사기, 예산)을 전면에 둔다. 그래서 ECC의 문서는 "어떻게 일하는가"보다 "무엇이 설치되는가"를 먼저 말한다. 2,215줄의 README와 1,532개 문서 파일이 그 야심의 부산물이다.
 

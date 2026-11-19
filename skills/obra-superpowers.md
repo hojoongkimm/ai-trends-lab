@@ -4,7 +4,7 @@
 - **Stars**: ⭐ 321,313 (forks 28,555, created 2025-10-09, 359 open issues, last push 2026-11-03)
 - **Category**: `Skills` / Software Engineering Methodology & Process Discipline
 - **Organization**: Prime Radiant (Jesse Vincent), MIT
-- **License / Runtime**: MIT / Shell and Markdown only; release 7.0.2 (2026-11-03); 15 skills totaling 143 KB, a 90-line SessionStart hook, 21 test suites, plugin manifests for 16 harnesses (Claude Code, Codex App and CLI, Cursor, Antigravity, Devin, Factory Droid, Gemini CLI, GitHub Copilot CLI, Grok Build CLI, Kimi Code, OpenCode, Pi, Qwen Code, Hermes, Muse)
+- **License / Runtime**: MIT / Shell and Markdown only; release 7.0.2 (2026-11-03); 15 skills totaling 143 KB, a 90-line SessionStart hook, 20 test-suite directories, install paths for 16 harness targets (Claude Code, Codex App and CLI, Cursor, Antigravity, Devin, Factory Droid, Gemini CLI, GitHub Copilot CLI, Grok Build CLI, Kimi Code, OpenCode, Pi, Qwen Code, Hermes, Muse)
 - **Key Themes**: a bootstrap that injects the skill-invocation rule at session start and after every compaction, spec elicitation as a gated conversation before code, plans written as 2–5 minute tasks with exact paths and code, subagent execution with a fresh context per task and a two-stage review, a 20,000-character skill-size test that treats the compaction cut as a hard budget, and blind-graded conversation evals reported against its own previous versions
 
 ---
