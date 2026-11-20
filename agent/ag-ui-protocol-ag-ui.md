@@ -58,7 +58,11 @@ $$
 스펙은 두 경우를 정반대로 다룬다. 인식하지 못하는 이벤트 타입, 설명되지 않은 속성, 나중에 추가된 종류의 결과는 **런을 중단시키면 안 된다**. 반면 프로토콜이 설명하는 필드가 스키마가 거부하는 값을 담으면 **치명적**이고, 소비자는 고치거나 강제 변환하지 말고 런을 실패시켜야 한다. 형식으로 쓰면
 
 $$
-\text{fatal}(e) = \begin{cases} \text{false} & \text{type}(e) \notin T \ \text{or} \ \text{prop}(e) \notin \Sigma \\ \text{true} & \text{known field with invalid value} \end{cases}
+\text{type}(e) \notin T \text{ or } \text{prop}(e) \notin \Sigma \quad \implies \quad \text{fatal}(e) = \text{false}
+$$
+
+$$
+\text{known field with invalid value} \quad \implies \quad \text{fatal}(e) = \text{true}
 $$
 
 이 비대칭은 포스텔 원칙의 반쪽 적용이다. 관용은 미래 확장에만 주고, 현재 계약에는 주지 않는다. 조용한 보정이 실제로는 가장 위험한 실패이기 때문이다. 잘못된 `delta`를 "고쳐서" 적용하면 상태는 조용히 오염되고, 그 오염은 이후 모든 판단에 전파된다.

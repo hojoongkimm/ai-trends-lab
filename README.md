@@ -1,7 +1,7 @@
 # 🚀 AI Trend Archive
 
-[![Tracked Categories](https://img.shields.io/badge/Tracked%20Categories-8-blue.svg)](#-categories)
-[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-42-blue.svg)](#-categories)
+[![Tracked Categories](https://img.shields.io/badge/Tracked%20Categories-8-blue.svg)](#-categories--quick-navigation)
+[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-42-blue.svg)](#-categories--quick-navigation)
 [![Auto Curation](https://img.shields.io/badge/Curation-Daily%20Updated-brightgreen.svg)](#-curation--tracking-policy)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Awesome%20List-orange.svg)](#)
 

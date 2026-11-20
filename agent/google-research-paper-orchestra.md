@@ -67,15 +67,18 @@ $$
 5단계는 자기 논문을 리뷰어 모델에 넣어 9개 축(Originality, Quality, Clarity, Significance, Soundness, Presentation, Contribution, Overall, Confidence) 점수를 받고, 점수가 오르는 수정만 남긴다. 수용 조건은
 
 $$
-\text{accept}(s_t, s_{t+1}) =
-\begin{cases}
-\text{true} & S_{t+1} \gt S_t \\
-\text{true} & S_{t+1} = S_t \ \text{and} \ \sum_{a \notin \lbrace \text{Overall}, \text{Confidence} \rbrace} \Delta_a \ge 0 \\
-\text{false} & \text{otherwise}
-\end{cases}
+S_{t+1} \gt S_t \quad \implies \quad \text{accept}(s_t, s_{t+1}) = \text{true}
 $$
 
-이고, 거절이면 직전 LaTeX로 되돌리고 루프를 즉시 멈춘다. 반복 상한은 3회다. 따라서 점수열은 단조 비감소이고 반복 수는 유한하므로 종료성은 보장된다. 문제는 목적함수가 고정되어 있지 않다는 점이다. 같은 LaTeX를 다시 채점해도 판정자 표본 추출 때문에 점수가 흔들리므로, "상승"은 참 상승이 아니라 잡음 있는 추정치의 상승이다. 저자들이 리뷰 축에서 Overall과 Confidence를 비교에서 제외한 것은 이 잡음을 줄이려는 장치로 읽힌다.
+$$
+S_{t+1} = S_t \text{ and } \sum_{a \notin \lbrace \text{Overall}, \text{Confidence} \rbrace} \Delta_a \ge 0 \quad \implies \quad \text{accept}(s_t, s_{t+1}) = \text{true}
+$$
+
+$$
+\text{otherwise} \quad \implies \quad \text{accept}(s_t, s_{t+1}) = \text{false}
+$$
+
+거절이면 직전 LaTeX로 되돌리고 루프를 즉시 멈춘다. 반복 상한은 3회다. 따라서 점수열은 단조 비감소이고 반복 수는 유한하므로 종료성은 보장된다. 문제는 목적함수가 고정되어 있지 않다는 점이다. 같은 LaTeX를 다시 채점해도 판정자 표본 추출 때문에 점수가 흔들리므로, "상승"은 참 상승이 아니라 잡음 있는 추정치의 상승이다. 저자들이 리뷰 축에서 Overall과 Confidence를 비교에서 제외한 것은 이 잡음을 줄이려는 장치로 읽힌다.
 
 수용된 수정의 효과는 분리 측정되어 있다. 정제 후 원고는 정제 전 원고를 상대로 79–81% 승률, 패배 0%를 기록하고, 시뮬레이션 채택률은 CVPR +19포인트, ICLR +22포인트, 종합 점수는 +0.88과 +1.61 올랐다. 정제가 조판·명료성·발표 축을 건드리기 때문에 생기는 폭이다.
 

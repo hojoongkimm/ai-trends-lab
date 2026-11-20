@@ -80,7 +80,11 @@ $$
 또 하나의 결정론 층은 **커버리지 원장**이다(`closure.py`, 162줄). 리포트는 보통 발견만 싣고, 그러면 독자는 나머지 전부를 확인했다고 암묵적으로 읽는다. 펜테스트 산출물에서 가장 위험한 기본값이다. 원장은 정찰이 드러낸 모든 `(호스트, 취약점 클래스)` 쌍에 판정을 요구하고, 허용 판정 집합을 `clean`, `finding`, `not_applicable`, `out_of_scope` 네 가지로 둔다. `blocked`는 의도적으로 빠져 있다. 막힌 항목은 구멍이고, 구멍은 caveat이 된다. 닫힘 조건은 다음과 같다.
 
 $$
-\mathrm{close} = \begin{cases} \text{CLEAN} & \forall (h,c) \in \mathrm{Discovered}, v(h,c) \in \mathrm{Covered} \\ \text{MARKED} & \text{otherwise, gaps as caveats} \end{cases}
+\forall (h,c) \in \mathrm{Discovered} : v(h,c) \in \mathrm{Covered} \quad \implies \quad \mathrm{close} = \text{CLEAN}
+$$
+
+$$
+\text{otherwise} \quad \implies \quad \mathrm{close} = \text{MARKED} \text{ (gaps as caveats)}
 $$
 
 `coverage_complete`는 하드 게이트다. 지오 블로킹된 호스트 하나가 있는 참여는 결코 깨끗하게 닫히지 않고, MARKED로 닫히면서 그 사실을 말한다. 나가지 못한 것을 조용히 빠뜨린 깨끗해 보이는 리포트보다, 함께 나가는 caveat이 낫다는 판단이다.

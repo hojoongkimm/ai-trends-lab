@@ -11,7 +11,7 @@
 
 ## 1. 연구 배경 및 시스템 병목 (Systems Research Problem)
 
-LLM 추론(Inference) 단계는 자기회귀(Autoregressive) 생성 특성상 **메모리 대역폭 집약적(Memory-bound)**입니다. 특히 이미 계산된 키-값 텐서를 보관하는 **KV 캐시(KV Cache)** 관리가 GPU 서빙의 최대 병목입니다:
+LLM 추론(Inference) 단계는 자기회귀(Autoregressive) 생성 특성상 **메모리 대역폭 집약적(Memory-bound)** 워크로드입니다. 특히 이미 계산된 키-값 텐서를 보관하는 **KV 캐시(KV Cache)** 관리가 GPU 서빙의 최대 병목입니다:
 1. **극심한 메모리 단편화(Fragmentation)**: 기존 서빙 시스템(FasterTransformer, HuggingFace)은 요청 시 최대 시퀀스 길이(예: 2,048 토큰)를 미리 가정하고 연속적인 물리 메모리를 선할당(Pre-allocation)하므로, 실제 토큰이 생성되기 전까지 내부 단편화(Internal Fragmentation)와 외부 단편화로 인해 **GPU 메모리의 60%~80%가 낭비**되었습니다.
 2. **배치 크기의 인위적 제약**: KV 캐시의 불필요한 선할당으로 인해 동시 처리 가능한 배치 크기(Batch Size)가 극단적으로 제한되어 GPU 연산기(Tensor Core) 활용률이 바닥에 머물렀습니다.
 

@@ -11,7 +11,7 @@
 
 ## 1. 연구 배경 및 문제 정의 (Research Problem)
 
-일반적인 딥러닝 연산(Conv2D, Dense, Transformer)은 격자형(Grid) 또는 순차형(Sequential) 유클리드 공간의 텐서를 가정합니다. 그러나 분자 구조, 소셜 네트워크, 통신망, 지식 그래프 등 대다수의 실세계 데이터는 **비유클리드 기하학(Non-Euclidean Space)**의 불규칙한 그래프 토폴로지를 갖습니다:
+일반적인 딥러닝 연산(Conv2D, Dense, Transformer)은 격자형(Grid) 또는 순차형(Sequential) 유클리드 공간의 텐서를 가정합니다. 그러나 분자 구조, 소셜 네트워크, 통신망, 지식 그래프 등 대다수의 실세계 데이터는 **비유클리드 기하학(Non-Euclidean Space)** 위에 놓인 불규칙한 그래프 토폴로지를 갖습니다:
 1. **노드 순서 불변성(Permutation Invariance)**: 인접 행렬의 행/열 인덱스 순서가 바뀌어도 그래프의 고유 특성은 불변해야 함.
 2. **희소 행렬 연산 병목(Sparse Memory Bottleneck)**: 노드 수가 수백만 개일 때 밀집(Dense) 행렬 $N \times N$은 메모리 한계로 저장이 불가능하여, 희소 인접 리스트(COO format) 기반의 특화된 GPU 커널이 필수적임.
 
