@@ -1,7 +1,7 @@
 # 🚀 AI Trend Archive
 
 [![Tracked Categories](https://img.shields.io/badge/Tracked%20Categories-8-blue.svg)](#-categories)
-[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-38-blue.svg)](#-categories)
+[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-42-blue.svg)](#-categories)
 [![Auto Curation](https://img.shields.io/badge/Curation-Daily%20Updated-brightgreen.svg)](#-curation--tracking-policy)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Awesome%20List-orange.svg)](#)
 
@@ -17,11 +17,11 @@
 | [**🕸️ Graph**](./graph) | 그래프 신경망(GNN), 지식 그래프, Graph RAG | Graph Neural Networks, PyG, GraphRAG, Knowledge Graph | 4 |
 | [**👁️ Deep Learning**](./deep-learning) | 비전/비디오 파운데이션 모델, 서빙 인프라 | SAM 2, vLLM, Visual Foundation, Serving Systems | 2 |
 | [**📊 Machine Learning**](./machine-learning) | 정형 딥러닝, 데이터 중심 AI, 라벨 품질 정제 | TabM, Cleanlab, Tabular DL, Confident Learning | 2 |
-| [**🤖 Agent**](./agent) | 자율 AI 에이전트, 멀티에이전트 스웜, 인지 루프 | Autonomous Agent, Swarms, Cognitive Memory | 6 |
+| [**🤖 Agent**](./agent) | 자율 AI 에이전트, 멀티에이전트 스웜, 지식 공급 계층 | Autonomous Agent, Swarms, Retrieval Infrastructure | 7 |
 | [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 9 |
-| [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 11 |
+| [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 13 |
 | [**⚙️ Automation**](./automation) | 경량 에이전트 자동화, 워크플로우 오케스트레이션 | Headless Agent, VPS Deployment, Scalable Loops | 3 |
-| [**🧠 LLM**](./llm) | 파운데이션 모델 응용, Agentic RAG, 구조화 추론 | LLM Apps, Agentic RAG, Production Reasoning | 1 |
+| [**🧠 LLM**](./llm) | 파운데이션 모델 응용, 최소 재현 스택, 구조화 추론 | LLM Apps, Pretraining Reproduction, Production Reasoning | 2 |
 
 ---
 
@@ -92,6 +92,10 @@
   *Process Discipline as a Skill Graph* — 74개 스킬과 14개 워크플로 매니페스트로 절차의 순서와 산출물 의존을 타입으로 선언하고, 결측 시 닫히는 게이트와 8축 검증 행렬을 기계 판독 형태로 공개한 투자 스킬 코퍼스.
 - [**ffmpeg-skill (`kajisho5/ffmpeg-skill`)**](./skills/kajisho5-ffmpeg-skill.md) ⭐ `6.8k+`  
   *Verification-Driven Media Editing* — 42개 도구의 입력 스키마를 argparse 파서에서 런타임에 파생해 CI로 드리프트를 막고, 플랫폼 적합성을 PASS/WARN/FAIL 술어로 판정하며, 하지 않은 일을 했다고 쓰면 0점을 주는 평가를 둔 로컬 미디어 스킬.
+- [**diagram-design (`cathrynlavery/diagram-design`)**](./skills/cathrynlavery-diagram-design.md) ⭐ `68.6k+`  
+  *Taste as an Executable Contract* — 51개 도식 타입을 타입별 참조로 분해해 컨텍스트 비용을 타입 수와 분리하고, 강조색 2개·9노드·4px 격자를 부등식으로 고정하며, 기하 검증기와 Chromium 렌더 린트·스킨 대비 게이트를 세 OS CI에서 돌리는 디자인 스킬.
+- [**app-store-compliance (`mjmirza/app-store-compliance`)**](./skills/mjmirza-app-store-compliance.md) ⭐ `1.8k+`  
+  *Policy as a Pre-Submit Gate* — 123개 거절 패턴을 신호·반대 신호 술어로 만들고 107개 규제 데드라인에 확인일과 원문을 붙이며, `PreToolUse` 훅으로 제출 명령을 exit 2로 막고 스캔 미완료를 CLEAR가 아닌 NOT CHECKED로 보고하는 컴플라이언스 게이트.
 
 ### 6. Agent Systems & Swarms
 - [**ruflo (`ruvnet/ruflo`)**](./agent/ruvnet-ruflo.md) ⭐ `81k+`  
@@ -106,6 +110,8 @@
   *Typed Agent-User Event Stream* — 1.0 명세의 31개 이벤트·8개 계열, 스냅샷과 RFC 6902 델타의 이중화, 중단을 런 결과로 모델링한 재개, 알 수 없는 재료와 규격 위반을 정반대로 다루는 오류 분류를 갖춘 에이전트-애플리케이션 프로토콜.
 - [**Qwen Code (`QwenLM/qwen-code`)**](./agent/QwenLM-qwen-code.md) ⭐ `30.6k+`  
   *Autonomy with Accounting* — 목표를 상태 기계로 두고 독립 검증자와 증거 타입 체계로 완료를 판정하며, 3,000만 토큰 예산과 무진전 3턴 한도, 단일 쓰기자 팀과 모델 아레나를 갖춘 오픈소스 터미널 에이전트 하네스.
+- [**Firecrawl (`firecrawl/firecrawl`)**](./agent/firecrawl-firecrawl.md) ⭐ `204k+`  
+  *Fallback Waterfall for Agent Knowledge* — 스크레이프·크롤·맵·검색을 15개 엔진의 우선순위 폴백으로 처리하고, 엔진별 시간 상한과 해시 기반 실험 배정을 두며, 로컬/클라우드 출처를 `source` 필드로 표기하고 미지의 설정값을 `off`로 처리하는 지식 공급 계층.
 
 ### 7. Automation & Scalability
 - [**OpenHuman (`tinyhumansai/openhuman`)**](./automation/tinyhumansai-openhuman.md) ⭐ `42k+`  
@@ -118,6 +124,8 @@
 ### 8. LLM & Applications
 - [**Awesome LLM Apps (`Shubhamsaboo/awesome-llm-apps`)**](./llm/Shubhamsaboo-awesome-llm-apps.md) ⭐ `144k+`  
   *100+ Production Apps* — 최신 멀티모달, 에이전틱 검색, 지능형 RAG 아키텍처 실무 코드베이스 모음.
+- [**MiniMind (`jingyaogong/minimind`)**](./llm/jingyaogong-minimind.md) ⭐ `66.9k+`  
+  *2-Hour 64M LLM from Zero* — 설정에서 파라미터를 다시 계산해 검증하는 63.9M dense/MoE 구조(Qwen3 계열 정렬)와, 사전학습→SFT→LoRA→DPO→PPO/GRPO/CISPO→도구 호출 에이전트 RL→증류까지 단계별 시간·비용을 공개한 재현 스택.
 
 ---
 
