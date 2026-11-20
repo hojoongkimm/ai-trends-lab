@@ -95,10 +95,10 @@ $$
 r = \mathrm{clip}\left(r_{len} + r_{think} + r_{close} + r_{RM} - r_{rep}, -3, 3\right)
 $$
 
-에이전트 경로(`train_agent.py`)는 이 위에 다중 턴 궤적을 얹는다. 턴 수 상한 3, 턴당 생성 256 토큰, 도구 응답은 2,048자로 잘라 넣고, 턴별 태그 균형 어긋남의 절대합에 0.5를 곱해 깎으며, 정답 도구 집합과 호출 집합의 차이를 벌점으로 쓴다.
+에이전트 경로(`train_agent.py`)는 이 위에 다중 턴 궤적을 얹는다. 턴 수 상한 3, 턴당 생성 256 토큰, 도구 응답은 2,048자로 잘라 넣고, 턴별 태그 균형 어긋남의 절대합에 0.5를 곱해 깎으며, 정답 도구 집합 $g$와 호출 집합의 크기 차이를 벌점으로 쓴다.
 
 $$
-\text{gap} = \left| n_{valid} - \lvert g \rvert \right| + \max\left(0, n_{call} - n_{valid}\right)
+\text{gap} = \left| n_{valid} - \mathrm{len}(g) \right| + \max\left(0, n_{call} - n_{valid}\right)
 $$
 
 즉 "필요한 도구를 다 불렀는가"와 "쓸데없는 도구를 더 불렀는가"를 분리해 벌점화한다. 이 분리가 없으면 모델은 도구를 많이 부르는 쪽으로 퇴화한다.
