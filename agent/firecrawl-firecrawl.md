@@ -56,10 +56,10 @@ $$
 
 엔진이 HTML을 가져오면 변환기(`transformers/`)가 형식을 만든다. 마크다운 변환 외에 JSON 추출(`llmExtract.ts`, 58KB), 질의 응답, 문서 diff, 오디오·비디오 전사, 메뉴·상품 추출, 유튜브 전사, 그리고 두 개의 안전 변환기가 있다. `redactPII`(개인정보 마스킹)와 `promptInjectionGuard`다.
 
-프롬프트 인젝션 가드는 **LLM 기반 형식보다 먼저** 실행된다. 즉 요약·JSON 추출 같은 모델 호출 전에 페이지를 스캔한다. 여기에 정직한 실패 처리가 붙는다. 스캔 가능한 길이 상한이 있고, 페이지가 그보다 길면 전체를 검사하지 못했다는 사실을 결과의 `warning`에 적고 **요금을 부과하지 않는다**.
+프롬프트 인젝션 가드는 **LLM 기반 형식보다 먼저** 실행된다. 즉 요약·JSON 추출 같은 모델 호출 전에 페이지를 스캔한다. 여기에 정직한 실패 처리가 붙는다. 스캔 가능한 길이 상한 $C_{\max}$가 있고, 페이지가 그보다 길면 전체를 검사하지 못했다는 사실을 결과의 `warning`에 적고 **요금을 부과하지 않는다**.
 
 $$
-\text{verdict}(d) = \begin{cases} \text{scanned}, & \lvert d \rvert \le C_{\max} \\ \text{partially scanned}, & \lvert d \rvert > C_{\max} \end{cases}
+\text{scanned}(d) \iff \lvert d \rvert \le C_{\max}, \qquad \text{partially scanned}(d) \iff \lvert d \rvert > C_{\max}
 $$
 
 검사하지 못한 것을 "깨끗함"으로 반환하지 않는 이 규칙이, 안전 기능에서 가장 흔한 실패 모드(검사 안 함을 통과로 표시)를 막는다.
@@ -87,7 +87,7 @@ $$
 클라우드 호출 정책은 3상태이고, **알 수 없는 값은 `off`로 처리**된다.
 
 $$
-\text{cloud}(v) = \begin{cases} \text{auto}, & v = \texttt{auto} \\ \text{search only}, & v = \texttt{search} \\ \text{off}, & \text{otherwise} \end{cases}
+v \in \left[ \texttt{auto}, \texttt{search} \right] \Rightarrow \text{cloud}(v) = v, \qquad v \notin \left[ \texttt{auto}, \texttt{search} \right] \Rightarrow \text{cloud}(v) = \texttt{off}
 $$
 
 기본값이 "가능한 한 로컬"이 아니라 "명시한 것만 클라우드"라는 뜻이며, 설정 오타가 조용히 데이터를 내보내지 않게 만든 선택이다.

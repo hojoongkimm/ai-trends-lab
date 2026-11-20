@@ -45,13 +45,13 @@ $$
 
 ### B. 게이트의 판정 함수
 
-가드는 `PreToolUse` 훅으로 등록되어 셸 명령을 받아, 제출 명령(`fastlane`, `eas submit`, `gradle bundleRelease`, `xcrun altool` 등)인지 판정하고 프로젝트를 스캔한다. 결론은 세 값 중 하나다.
+가드는 `PreToolUse` 훅으로 등록되어 셸 명령을 받아, 제출 명령(`fastlane`, `eas submit`, `gradle bundleRelease`, `xcrun altool` 등)인지 판정하고 프로젝트를 스캔한다. 결론은 세 값 중 하나다. 스캔 미완료를 $U(s)$라 두면 판정은 두 조건으로 결정된다.
 
 $$
-\text{verdict} = \begin{cases} \text{BLOCKED}, & N_{\text{crit}} > 0 \\ \text{NOT CHECKED}, & \text{scan incomplete} \lor \text{no project} \\ \text{CLEAR}, & \text{otherwise} \end{cases}
+\text{verdict}(s) = \text{BLOCKED} \iff N_{\text{crit}}(s) > 0, \qquad \text{verdict}(s) = \text{CLEAR} \iff N_{\text{crit}}(s) = 0 \land \lnot U(s)
 $$
 
-차단은 종료 코드 2로 전달되고, 호스트는 그 코드로 명령 실행을 멈춘다. 예외는 환경 변수 하나(`APP_STORE_GUARD_OK=1`)로만 열린다. 중요한 것은 세 번째 값의 존재다. 임시 버퍼를 만들지 못하면 결과는 CLEAR가 아니라 NOT CHECKED이고, 종료 코드는 1이다. iOS·안드로이드 프로젝트를 찾지 못해도 같은 값이 나온다. 스캔이 끝나지 않은 상태를 통과로 표시하지 않는 이 규칙이, 자동화 게이트에서 가장 흔한 실패(빈 결과를 깨끗함으로 반환)를 막는다.
+세 번째 값 NOT CHECKED는 차단도 CLEAR도 아닌 경우, 즉 스캔이 끝나지 않았을 때다. 차단은 종료 코드 2로 전달되고, 호스트는 그 코드로 명령 실행을 멈춘다. 예외는 환경 변수 하나(`APP_STORE_GUARD_OK=1`)로만 열린다. 중요한 것은 세 번째 값의 존재다. 임시 버퍼를 만들지 못하면 결과는 CLEAR가 아니라 NOT CHECKED이고, 종료 코드는 1이다. iOS·안드로이드 프로젝트를 찾지 못해도 같은 값이 나온다. 스캔이 끝나지 않은 상태를 통과로 표시하지 않는 이 규칙이, 자동화 게이트에서 가장 흔한 실패(빈 결과를 깨끗함으로 반환)를 막는다.
 
 가드는 1,752줄이고, 판정 항목은 100개다(critical 29, high 48, medium 23). 플랫폼 판별은 파일 존재로 하고(iOS, Android, Flutter, React Native/Expo, Ionic/Capacitor, Unity, Tauri, KMP, MAUI, 웹), 크로스플랫폼은 네이티브 심볼이 소스에 나타나지 않으므로 플러그인 패키지명으로 우회한다. 예를 들어 인앱 결제 검사는 `in_app_purchase`, `react-native-iap`, `Purchases_flutter` 같은 플러그인 식별자를 본다.
 
