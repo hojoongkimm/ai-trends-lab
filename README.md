@@ -1,7 +1,7 @@
 # 🚀 AI Trend Archive
 
 [![Tracked Categories](https://img.shields.io/badge/Tracked%20Categories-8-blue.svg)](#-categories--quick-navigation)
-[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-42-blue.svg)](#-categories--quick-navigation)
+[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-45-blue.svg)](#-categories--quick-navigation)
 [![Auto Curation](https://img.shields.io/badge/Curation-Daily%20Updated-brightgreen.svg)](#-curation--tracking-policy)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Awesome%20List-orange.svg)](#)
 
@@ -18,10 +18,10 @@
 | [**👁️ Deep Learning**](./deep-learning) | 비전/비디오 파운데이션 모델, 서빙 인프라 | SAM 2, vLLM, Visual Foundation, Serving Systems | 2 |
 | [**📊 Machine Learning**](./machine-learning) | 정형 딥러닝, 데이터 중심 AI, 라벨 품질 정제 | TabM, Cleanlab, Tabular DL, Confident Learning | 2 |
 | [**🤖 Agent**](./agent) | 자율 AI 에이전트, 멀티에이전트 스웜, 지식 공급 계층 | Autonomous Agent, Swarms, Retrieval Infrastructure | 7 |
-| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 9 |
-| [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 13 |
+| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 10 |
+| [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 14 |
 | [**⚙️ Automation**](./automation) | 경량 에이전트 자동화, 워크플로우 오케스트레이션 | Headless Agent, VPS Deployment, Scalable Loops | 3 |
-| [**🧠 LLM**](./llm) | 파운데이션 모델 응용, 최소 재현 스택, 구조화 추론 | LLM Apps, Pretraining Reproduction, Production Reasoning | 2 |
+| [**🧠 LLM**](./llm) | 파운데이션 모델 응용, 최소 재현 스택, 구조화 추론 | LLM Apps, Pretraining Reproduction, Production Reasoning | 3 |
 
 ---
 
@@ -68,6 +68,8 @@
   *Skill Lift as a Paired Measurement* — 정적 검증·중복 검사·실측을 독립 계층으로 분리하고, ATIF 궤적 계약과 참조 미끼 기준선으로 스킬의 한계 기여를 947개 쌍 사례로 측정한 엔비디아 평가 하네스.
 - [**Elephant-Goldfish Model (`google/elephant-goldfish-model`)**](./harness/google-elephant-goldfish-model.md) ⭐ `20.4k+`  
   *Review as Information Asymmetry* — 깊은 컨텍스트의 Elephant가 설계를 쓰고 제로 컨텍스트 Goldfish가 5단계 루브릭으로 검토하며, 수정 후 동일 술어를 재적용하는 회귀 단계를 둔 구글의 SDD 플러그인.
+- [**mini-swe-agent (`SWE-agent/mini-swe-agent`)**](./harness/SWE-agent-mini-swe-agent.md) ⭐ `9.9k+`  
+  *The Scaffold as a Control Variable* — bash 단일 도구와 선형 메시지 히스토리, 30초 타임아웃·프로세스 그룹 킬을 건 상태 없는 `subprocess` 실행으로 하네스를 488줄로 접고, 완료 센티널과 비용·형식오류 예산으로 루프를 닫으며, SWE-bench Verified 76.8%(Claude 4.5 Opus, 문항당 0.75달러)와 동일 모델에서의 하네스 차이 2.4–5.9점을 공개한 최소 SWE 하네스.
 
 ### 5. Skills & Tool Ecosystem
 - [**Anthropic Agent Skills (`anthropics/skills`)**](./skills/anthropics-skills.md) ⭐ `193k+`  
@@ -96,6 +98,8 @@
   *Taste as an Executable Contract* — 51개 도식 타입을 타입별 참조로 분해해 컨텍스트 비용을 타입 수와 분리하고, 강조색 2개·9노드·4px 격자를 부등식으로 고정하며, 기하 검증기와 Chromium 렌더 린트·스킨 대비 게이트를 세 OS CI에서 돌리는 디자인 스킬.
 - [**app-store-compliance (`mjmirza/app-store-compliance`)**](./skills/mjmirza-app-store-compliance.md) ⭐ `1.8k+`  
   *Policy as a Pre-Submit Gate* — 123개 거절 패턴을 신호·반대 신호 술어로 만들고 107개 규제 데드라인에 확인일과 원문을 붙이며, `PreToolUse` 훅으로 제출 명령을 exit 2로 막고 스캔 미완료를 CLEAR가 아닌 NOT CHECKED로 보고하는 컴플라이언스 게이트.
+- [**Academic Research Skills (`Imbad0202/academic-research-skills`)**](./skills/Imbad0202-academic-research-skills.md) ⭐ `57.9k+`  
+  *Verification as a Stage Boundary* — 5개 스킬·35개 모드로 연구질문→집필→리뷰→수정→제출을 10단계로 오케스트레이션하고, Stage 2.5/4.5 무결성 게이트에 M1–M7 실패 체크리스트와 위험 계층화 표본 검증을 붙이며, 결정론적 인용 실재 게이트(제목 유사도 0.70)와 위치자 앵커·선택형 주장 감사(FNR 0.15 미만·FPR 0.10 미만 기준), 1–5점 철회 문턱 프로토콜로 반박 아첨을 억제하는 연구 스킬 스위트.
 
 ### 6. Agent Systems & Swarms
 - [**ruflo (`ruvnet/ruflo`)**](./agent/ruvnet-ruflo.md) ⭐ `81k+`  
@@ -126,6 +130,8 @@
   *100+ Production Apps* — 최신 멀티모달, 에이전틱 검색, 지능형 RAG 아키텍처 실무 코드베이스 모음.
 - [**MiniMind (`jingyaogong/minimind`)**](./llm/jingyaogong-minimind.md) ⭐ `66.9k+`  
   *2-Hour 64M LLM from Zero* — 설정에서 파라미터를 다시 계산해 검증하는 63.9M dense/MoE 구조(Qwen3 계열 정렬)와, 사전학습→SFT→LoRA→DPO→PPO/GRPO/CISPO→도구 호출 에이전트 RL→증류까지 단계별 시간·비용을 공개한 재현 스택.
+- [**AutoClip (`zhouxiaoka/autoclip`)**](./llm/zhouxiaoka-autoclip.md) ⭐ `12.3k+`  
+  *Selection as the Bottleneck* — 5,000자 블록 단위로 개요·타임라인·점수·제목을 뽑고 문턱 0.7에 fallback 보충과 상한 절단을 두며, 문장·정지 기반 경계 정련(전진 25초·모델 확장 60초 상한)과 숏 단위 얼굴·입모양 구도(crop 대 fit), 8개 플랫폼 선언 테이블과 단계별 실측 비용(1시간 43분 → 7.5분·0.09위안)을 공개한 로컬 우선 클리핑 앱.
 
 ---
 
@@ -135,8 +141,8 @@
    - **그래프 (Graph/GNN)**: 지식 그래프, Graph RAG, OGB 벤치마크, 이종 그래프 신경망
    - **딥러닝 (Deep Learning)**: 컴퓨터 비전/비디오 파운데이션 모델, 디퓨전, 추론/서빙 가속 엔진
    - **머신러닝 (Machine Learning)**: 정형 데이터 딥러닝, AutoML, 데이터 중심 AI, 라벨 노이즈 정제
-   - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 휴먼 인 더 루프 승인·리뷰 표면, 브라우저 관측·도구 사용 표면, 브라우저 실행 런타임과 격리 계약, 엔지니어링 스킬 팩, 도메인 지식 스킬 번들, 디자인-투-코드 스킬 파이프라인, 에이전트-애플리케이션 프로토콜, 스킬 역량 실측 평가, 자율성 예산과 완료 검증, 검증 주도 도구 표면, GUI→CLI 하네스 생성과 에이전트 네이티브 인터페이스 계약, 설정 감사와 공급망 보안
-   - **LLM/자동화 (LLM & Automation)**: 에이전틱 RAG, 코드 리뷰·보안 감사 파이프라인, 경량 백그라운드 오케스트레이션, 도메인 증거 조립과 스케줄 실행
+   - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 휴먼 인 더 루프 승인·리뷰 표면, 브라우저 관측·도구 사용 표면, 브라우저 실행 런타임과 격리 계약, 엔지니어링 스킬 팩, 도메인 지식 스킬 번들, 디자인-투-코드 스킬 파이프라인, 에이전트-애플리케이션 프로토콜, 스킬 역량 실측 평가, 자율성 예산과 완료 검증, 검증 주도 도구 표면, GUI→CLI 하네스 생성과 에이전트 네이티브 인터페이스 계약, 설정 감사와 공급망 보안, 연구 검증 게이트를 둔 집필·리뷰 스킬 스위트, 최소 실행 하네스와 모델-하네스 분리 평가
+   - **LLM/자동화 (LLM & Automation)**: 에이전틱 RAG, 코드 리뷰·보안 감사 파이프라인, 경량 백그라운드 오케스트레이션, 도메인 증거 조립과 스케줄 실행, 장편 미디어의 숏폼 재가공 파이프라인
 2. **분석 기준**:
    - 아키텍처 및 핵심 구조 요약
    - 기존 모델/도구 대비 차별점 및 벤치마크 SOTA 성과
