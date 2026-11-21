@@ -59,14 +59,14 @@
 점수 $s(c)$가 문턱 $\tau = 0.7$ 이상인 후보는 전부 남기고, 최소 보존 수 $k_{\min}$에 못 미치면 점수순으로 채우며(표시: fallback), 최대 $k_{\max}$를 넘으면 점수순으로 자른다.
 
 $$
-S = \lbrace c \in \mathcal{C} : s(c) \ge \tau \rbrace
+S = \lbrace c \in \mathcal{C} : s(c) \ge \tau \rbrace, \quad n = \lvert S \rvert
 $$
 
 $$
-\left\lvert S_{\text{out}} \right\rvert = \min\left(\max\left(\left\lvert S \right\rvert, k_{\min}\right), k_{\max}\right)
+n_{\text{out}} = \min(\max(n, k_{\min}), k_{\max})
 $$
 
-여기서 중요한 것은 **문턱이 하한을 보장하지 않는다는 사실을 코드가 인정한다**는 점이다. 후보가 부족하면 문턱을 낮추는 대신 fallback으로 표시해 남기고, 선별 보고서에 `threshold`, `candidates`, `selected`, `fallback_selected`, `truncated`를 남긴다. 즉 "0.7 미만은 버린다"는 정책과 "최소 2편은 만든다"는 정책이 충돌할 때, 시스템은 후자를 택하고 그 사실을 기록한다.
+여기서 중요한 것은 **문턱이 하한을 보장하지 않는다는 사실을 코드가 인정한다**는 점이다. 후보가 부족하면 문턱을 낮추는 대신 fallback으로 표시해 남기고(`n_{\text{out}}`이 $k_{\min}$으로 올라간다), 선별 보고서에 `threshold`, `candidates`, `selected`, `fallback_selected`, `truncated`를 남긴다. 즉 "0.7 미만은 버린다"는 정책과 "최소 2편은 만든다"는 정책이 충돌할 때, 시스템은 후자를 택하고 그 사실을 기록한다.
 
 ### D. 블록 독립 처리와 정렬
 
@@ -135,7 +135,7 @@ $$
 
 ## 3. 구조적 비교 (Comparative Positioning)
 
-| 항목 | 클라우드형 클리핑 서비스 | ffmpeg-skill (보관소 내) | 범용 에이전트 + ffmpeg | AutoClip |
+| 항목 | 클라우드형 클리핑 서비스(일반) | ffmpeg-skill (보관소 내) | 범용 에이전트 + ffmpeg | AutoClip |
 | :--- | :--- | :--- | :--- | :--- |
 | 선택 알고리즘 | 비공개 | 없음 | 모델이 즉석 구성 | 공개(프로필·문턱·fallback) |
 | 미디어 실행 위치 | 서버 | 로컬 | 로컬 | 로컬(렌더·구도) |
