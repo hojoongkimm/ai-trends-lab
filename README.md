@@ -1,7 +1,7 @@
 # 🚀 AI Trend Archive
 
 [![Tracked Categories](https://img.shields.io/badge/Tracked%20Categories-8-blue.svg)](#-categories--quick-navigation)
-[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-47-blue.svg)](#-categories--quick-navigation)
+[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-50-blue.svg)](#-categories--quick-navigation)
 [![Auto Curation](https://img.shields.io/badge/Curation-Daily%20Updated-brightgreen.svg)](#-curation--tracking-policy)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Awesome%20List-orange.svg)](#)
 
@@ -14,11 +14,11 @@
 
 | 카테고리 | 설명 | 주요 키워드 | 문서 수 |
 | :--- | :--- | :--- | :---: |
-| [**🕸️ Graph**](./graph) | 그래프 신경망(GNN), 지식 그래프, Graph RAG | Graph Neural Networks, PyG, GraphRAG, Knowledge Graph | 4 |
+| [**🕸️ Graph**](./graph) | 그래프 신경망(GNN), 지식 그래프, Graph RAG | Graph Neural Networks, PyG, GraphRAG, Knowledge Graph | 5 |
 | [**👁️ Deep Learning**](./deep-learning) | 비전/비디오 파운데이션 모델, 서빙 인프라 | SAM 2, vLLM, Visual Foundation, Serving Systems | 2 |
 | [**📊 Machine Learning**](./machine-learning) | 정형 딥러닝, 데이터 중심 AI, 라벨 품질 정제 | TabM, Cleanlab, Tabular DL, Confident Learning | 2 |
-| [**🤖 Agent**](./agent) | 자율 AI 에이전트, 멀티에이전트 스웜, 지식 공급 계층 | Autonomous Agent, Swarms, Retrieval Infrastructure | 8 |
-| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 10 |
+| [**🤖 Agent**](./agent) | 자율 AI 에이전트, 멀티에이전트 스웜, 지식 공급 계층 | Autonomous Agent, Swarms, Retrieval Infrastructure | 9 |
+| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 11 |
 | [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 15 |
 | [**⚙️ Automation**](./automation) | 경량 에이전트 자동화, 워크플로우 오케스트레이션 | Headless Agent, VPS Deployment, Scalable Loops | 3 |
 | [**🧠 LLM**](./llm) | 파운데이션 모델 응용, 최소 재현 스택, 구조화 추론 | LLM Apps, Pretraining Reproduction, Production Reasoning | 3 |
@@ -30,6 +30,8 @@
 ### 1. Graph & Graph Neural Networks (GNN)
 - [**Graphify (`Graphify-Labs/graphify`)**](./graph/Graphify-Labs-graphify.md) ⭐ `146k+`  
   *Codebase to Knowledge Graph* — 대규모 코드와 문서를 AST 기반 결정론적 지식 그래프로 변환해 에이전트에 공급하는 혁신적 그래프 도구.
+- [**CodeGraph (`colbymchenry/codegraph`)**](./graph/colbymchenry-codegraph.md) ⭐ `78.7k+`  
+  *Code Structure as a Pre-Built Index* — Rust 추출 커널로 파일당 한 번의 경계 통과만에 30여 언어의 심볼·호출 간선을 SQLite 지식 그래프에 적재하고, 호출 그래프 위 personalized PageRank(α=0.25)로 구조 관련도를 매긴 뒤 관련도 비례 바이트 배분과 15% 상대 절벽으로 18,000자 봉투를 나눠 도구 호출 88%·토큰 62%·비용 44%를 줄이고 파일 읽기를 0으로 만든 에이전트 코드 검색 인프라.
 - [**LightRAG (`HKUDS/LightRAG`)**](./graph/HKUDS-LightRAG.md) ⭐ `40k+` (EMNLP 2025)  
   *Dual-Level Graph RAG* — 2단계 계층적 그래프 인덱싱을 통해 저비용·초고속으로 포괄적 질의를 해결하는 최신 그래프 RAG.
 - [**Microsoft GraphRAG (`microsoft/graphrag`)**](./graph/microsoft-graphrag.md) ⭐ `36k+`  
@@ -70,6 +72,8 @@
   *Review as Information Asymmetry* — 깊은 컨텍스트의 Elephant가 설계를 쓰고 제로 컨텍스트 Goldfish가 5단계 루브릭으로 검토하며, 수정 후 동일 술어를 재적용하는 회귀 단계를 둔 구글의 SDD 플러그인.
 - [**mini-swe-agent (`SWE-agent/mini-swe-agent`)**](./harness/SWE-agent-mini-swe-agent.md) ⭐ `9.9k+`  
   *The Scaffold as a Control Variable* — bash 단일 도구와 선형 메시지 히스토리, 30초 타임아웃·프로세스 그룹 킬을 건 상태 없는 `subprocess` 실행으로 하네스를 488줄로 접고, 완료 센티널과 비용·형식오류 예산으로 루프를 닫으며, SWE-bench Verified 76.8%(Claude 4.5 Opus, 문항당 0.75달러)와 동일 모델에서의 하네스 차이 2.4–5.9점을 공개한 최소 SWE 하네스.
+- [**Phone Harness (`phone-harness/phone-harness`)**](./harness/phone-harness-phone-harness.md) ⭐ `5.8k+`  
+  *Screen as the Only API* — 27개 연산 어휘 하나로 iPhone 미러링·adb Android·클라우드 폰을 같은 헬퍼로 조작하고, 픽셀에서 전역 좌표로의 사상과 `tree`/`pixels` 출처 표지, 화면 이동 기반 리스트 종료 판정, SkyLight 이벤트 레코드로 포커스를 빼앗지 않는 입력을 구현한 모바일 조작 하네스.
 
 ### 5. Skills & Tool Ecosystem
 - [**Anthropic Agent Skills (`anthropics/skills`)**](./skills/anthropics-skills.md) ⭐ `193k+`  
@@ -120,6 +124,8 @@
   *Fallback Waterfall for Agent Knowledge* — 스크레이프·크롤·맵·검색을 15개 엔진의 우선순위 폴백으로 처리하고, 엔진별 시간 상한과 해시 기반 실험 배정을 두며, 로컬/클라우드 출처를 `source` 필드로 표기하고 미지의 설정값을 `off`로 처리하는 지식 공급 계층.
 - [**Linger (`simplexai-labs/linger`)**](./agent/simplexai-labs-linger.md) ⭐ `4.2k+`  
   *Model–Harness Co-design for a Local Agent* — 24,576 expert 중 토큰당 10개만 만지는 125B 모델을 12 GB 카드에 올리도록 VRAM expert 캐시·pinned RAM·SSD n-gram 표로 배치하고, MTP 드래프트로 토큰 동일성을 유지한 채 1.6–1.8배를 얻으며, 야간 위키 편집 검사와 배달 결과로 재작성되는 규칙 목록, 단일 모델 우선순위 스케줄러를 갖춘 로컬 퍼스널 에이전트.
+- [**CLI Agent Orchestrator (`awslabs/cli-agent-orchestrator`)**](./agent/awslabs-cli-agent-orchestrator.md) ⭐ `1.6k+`  
+  *Supervision over Unmodified CLIs* — 13개 코딩 CLI를 tmux 창 하나씩으로 띄워 재구현 없이 그대로 쓰고, pyte 합성 화면의 두 에지(상승·정착 0.2초)로 상태를 판정하며, bracketed paste 인박스에 출력 세대 카운터 기반 제출 확인(8초·2회 복구)과 대화상자 거부 우선 규칙을 걸고, 역할 기반 도구 감쇠와 위임 상한으로 자식 권한을 제한하는 AWS 멀티에이전트 오케스트레이터.
 
 ### 7. Automation & Scalability
 - [**OpenHuman (`tinyhumansai/openhuman`)**](./automation/tinyhumansai-openhuman.md) ⭐ `42k+`  
@@ -142,10 +148,10 @@
 ## 📌 Curation & Tracking Policy
 
 1. **탐색 범위 (Coverage)**:
-   - **그래프 (Graph/GNN)**: 지식 그래프, Graph RAG, OGB 벤치마크, 이종 그래프 신경망
+   - **그래프 (Graph/GNN)**: 지식 그래프, Graph RAG, OGB 벤치마크, 이종 그래프 신경망, 코드 지식 그래프와 출력 예산 배분
    - **딥러닝 (Deep Learning)**: 컴퓨터 비전/비디오 파운데이션 모델, 디퓨전, 추론/서빙 가속 엔진
    - **머신러닝 (Machine Learning)**: 정형 데이터 딥러닝, AutoML, 데이터 중심 AI, 라벨 노이즈 정제
-   - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 휴먼 인 더 루프 승인·리뷰 표면, 브라우저 관측·도구 사용 표면, 브라우저 실행 런타임과 격리 계약, 엔지니어링 스킬 팩, 도메인 지식 스킬 번들, 디자인-투-코드 스킬 파이프라인, 에이전트-애플리케이션 프로토콜, 스킬 역량 실측 평가, 자율성 예산과 완료 검증, 검증 주도 도구 표면, GUI→CLI 하네스 생성과 에이전트 네이티브 인터페이스 계약, 설정 감사와 공급망 보안, 연구 검증 게이트를 둔 집필·리뷰 스킬 스위트, 최소 실행 하네스와 모델-하네스 분리 평가, 로컬 추론 오프로딩과 서빙 속도 힐클라임 스킬
+   - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 휴먼 인 더 루프 승인·리뷰 표면, 브라우저 관측·도구 사용 표면, 브라우저 실행 런타임과 격리 계약, 엔지니어링 스킬 팩, 도메인 지식 스킬 번들, 디자인-투-코드 스킬 파이프라인, 에이전트-애플리케이션 프로토콜, 스킬 역량 실측 평가, 자율성 예산과 완료 검증, 검증 주도 도구 표면, GUI→CLI 하네스 생성과 에이전트 네이티브 인터페이스 계약, 모바일 기기 제어 하네스와 연산 어휘 추상화, PTY 기반 멀티 CLI 감독과 제출 확인 전달, 설정 감사와 공급망 보안, 연구 검증 게이트를 둔 집필·리뷰 스킬 스위트, 최소 실행 하네스와 모델-하네스 분리 평가, 로컬 추론 오프로딩과 서빙 속도 힐클라임 스킬
    - **LLM/자동화 (LLM & Automation)**: 에이전틱 RAG, 코드 리뷰·보안 감사 파이프라인, 경량 백그라운드 오케스트레이션, 도메인 증거 조립과 스케줄 실행, 장편 미디어의 숏폼 재가공 파이프라인
 2. **분석 기준**:
    - 아키텍처 및 핵심 구조 요약
