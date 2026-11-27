@@ -1,7 +1,7 @@
 # 🚀 AI Trend Archive
 
 [![Tracked Categories](https://img.shields.io/badge/Tracked%20Categories-8-blue.svg)](#-categories--quick-navigation)
-[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-50-blue.svg)](#-categories--quick-navigation)
+[![Analysis Reports](https://img.shields.io/badge/Analysis%20Reports-51-blue.svg)](#-categories--quick-navigation)
 [![Auto Curation](https://img.shields.io/badge/Curation-Daily%20Updated-brightgreen.svg)](#-curation--tracking-policy)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Awesome%20List-orange.svg)](#)
 
@@ -18,7 +18,7 @@
 | [**👁️ Deep Learning**](./deep-learning) | 비전/비디오 파운데이션 모델, 서빙 인프라 | SAM 2, vLLM, Visual Foundation, Serving Systems | 2 |
 | [**📊 Machine Learning**](./machine-learning) | 정형 딥러닝, 데이터 중심 AI, 라벨 품질 정제 | TabM, Cleanlab, Tabular DL, Confident Learning | 2 |
 | [**🤖 Agent**](./agent) | 자율 AI 에이전트, 멀티에이전트 스웜, 지식 공급 계층 | Autonomous Agent, Swarms, Retrieval Infrastructure | 9 |
-| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 11 |
+| [**⚡ Harness**](./harness) | 에이전트 실행 환경, 벤치마크 평가, 런타임 제어 | Agent Harness, Eval Harness, Execution Boundary | 12 |
 | [**🛠️ Skills**](./skills) | 에이전트 도구 사용, 컴퓨터 인터랙션, 모듈형 역량 | Agent Skills, Tool-Use, Computer Use | 15 |
 | [**⚙️ Automation**](./automation) | 경량 에이전트 자동화, 워크플로우 오케스트레이션 | Headless Agent, VPS Deployment, Scalable Loops | 3 |
 | [**🧠 LLM**](./llm) | 파운데이션 모델 응용, 최소 재현 스택, 구조화 추론 | LLM Apps, Pretraining Reproduction, Production Reasoning | 3 |
@@ -74,6 +74,8 @@
   *The Scaffold as a Control Variable* — bash 단일 도구와 선형 메시지 히스토리, 30초 타임아웃·프로세스 그룹 킬을 건 상태 없는 `subprocess` 실행으로 하네스를 488줄로 접고, 완료 센티널과 비용·형식오류 예산으로 루프를 닫으며, SWE-bench Verified 76.8%(Claude 4.5 Opus, 문항당 0.75달러)와 동일 모델에서의 하네스 차이 2.4–5.9점을 공개한 최소 SWE 하네스.
 - [**Phone Harness (`phone-harness/phone-harness`)**](./harness/phone-harness-phone-harness.md) ⭐ `5.8k+`  
   *Screen as the Only API* — 27개 연산 어휘 하나로 iPhone 미러링·adb Android·클라우드 폰을 같은 헬퍼로 조작하고, 픽셀에서 전역 좌표로의 사상과 `tree`/`pixels` 출처 표지, 화면 이동 기반 리스트 종료 판정, SkyLight 이벤트 레코드로 포커스를 빼앗지 않는 입력을 구현한 모바일 조작 하네스.
+- [**rea-video (`JuneYaooo/rea-video`)**](./harness/JuneYaooo-rea-video.md) ⭐ `14k+`  
+  *Evidence Before Verdict* — 96px 썸네일 히스토그램과 국소 적응 임계로 컷·점프컷·플래시·디졸브·와이프를 갈라내고, 센서 노이즈·평탄 블록·중복 프레임 주기·강체 변환 게이트로 촬영·AI·3D·코드 렌더를 판정한 뒤, 가중 기하 평균과 그룹 2단 결정·하드 제약으로 읽는 자의 판단을 계측에 합치고, 19만 토큰 분석을 2천 토큰 카드에서 시작하는 5계층 VIDEO.md로 접는 영상 역설계 하네스.
 
 ### 5. Skills & Tool Ecosystem
 - [**Anthropic Agent Skills (`anthropics/skills`)**](./skills/anthropics-skills.md) ⭐ `193k+`  
@@ -152,7 +154,7 @@
    - **딥러닝 (Deep Learning)**: 컴퓨터 비전/비디오 파운데이션 모델, 디퓨전, 추론/서빙 가속 엔진
    - **머신러닝 (Machine Learning)**: 정형 데이터 딥러닝, AutoML, 데이터 중심 AI, 라벨 노이즈 정제
    - **에이전트/하네스/스킬 (Agentic AI)**: 자율 인지 루프, 런타임 보안/하네스, 휴먼 인 더 루프 승인·리뷰 표면, 브라우저 관측·도구 사용 표면, 브라우저 실행 런타임과 격리 계약, 엔지니어링 스킬 팩, 도메인 지식 스킬 번들, 디자인-투-코드 스킬 파이프라인, 에이전트-애플리케이션 프로토콜, 스킬 역량 실측 평가, 자율성 예산과 완료 검증, 검증 주도 도구 표면, GUI→CLI 하네스 생성과 에이전트 네이티브 인터페이스 계약, 모바일 기기 제어 하네스와 연산 어휘 추상화, PTY 기반 멀티 CLI 감독과 제출 확인 전달, 설정 감사와 공급망 보안, 연구 검증 게이트를 둔 집필·리뷰 스킬 스위트, 최소 실행 하네스와 모델-하네스 분리 평가, 로컬 추론 오프로딩과 서빙 속도 힐클라임 스킬
-   - **LLM/자동화 (LLM & Automation)**: 에이전틱 RAG, 코드 리뷰·보안 감사 파이프라인, 경량 백그라운드 오케스트레이션, 도메인 증거 조립과 스케줄 실행, 장편 미디어의 숏폼 재가공 파이프라인
+   - **LLM/자동화 (LLM & Automation)**: 에이전틱 RAG, 코드 리뷰·보안 감사 파이프라인, 경량 백그라운드 오케스트레이션, 도메인 증거 조립과 스케줄 실행, 장편 미디어의 숏폼 재가공 파이프라인, 완성된 영상에서 제작 방식으로 거슬러 올라가는 역설계(샷 경계·모델 판정·복각 계획)
 2. **분석 기준**:
    - 아키텍처 및 핵심 구조 요약
    - 기존 모델/도구 대비 차별점 및 벤치마크 SOTA 성과
